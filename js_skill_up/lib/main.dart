@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
         title: 'js Skill Up',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            backgroundColor: Color(0xF7FFF7),
+            backgroundColor: Color(0xFFF7FFF7),
             primaryColor: Color(0xFF4ECDC4),
-            primaryColorDark: Color(0x1A535C),
+            primaryColorDark: Color(0xFF1A535C),
             accentColor: Color(0xFF6B6B)
             ),
         home: LoginScreen());

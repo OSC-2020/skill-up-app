@@ -12,11 +12,12 @@ class _PhoneInputState extends State<PhoneInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16),
       padding: EdgeInsets.symmetric(horizontal: 16),
       height: 70,
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.transparent,
+          border:
+              Border.all(width: 1.0, color: Theme.of(context).primaryColorDark),
           borderRadius: BorderRadius.all(Radius.circular(8.0))),
       child: Row(
         children: <Widget>[
@@ -35,7 +36,7 @@ class _PhoneInputState extends State<PhoneInput> {
           ),
           IconButton(
             icon: Icon(Icons.chevron_right),
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).primaryColorDark,
             onPressed: () {},
           )
         ],

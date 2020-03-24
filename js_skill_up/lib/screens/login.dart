@@ -15,21 +15,50 @@ class LoginScreen extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Container(
         decoration: _getBackgroundDecoration(context),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
               Text(
-                "js Skill Up",
+                "JS Skill Up",
                 style: TextStyle(
-                    fontSize: 40.0,
+                    color: Theme.of(context).primaryColorDark,
+                    fontSize: 46,
+                    fontFamily: "Calibre-Semibold",
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.0),
               ),
-            ]),
-            SizedBox(height: 8.0),
-            PhoneInput()
-          ],
+              SizedBox(height: 60.0),
+              PhoneInput(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40.0),
+                child: Divider(
+                  color: Colors.grey,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    _makeLoginButton(
+                        imageLocation: "assets/icons/google.png",
+                        context: context,
+                        tooltipText: "Login with Google"),
+                    _makeLoginButton(
+                        imageLocation: "assets/icons/facebook.png",
+                        context: context,
+                        tooltipText: "Login with Facebook"),
+                    _makeLoginButton(
+                        imageLocation: "assets/icons/github.png",
+                        context: context,
+                        tooltipText: "Login with Github"),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -49,5 +78,21 @@ class LoginScreen extends StatelessWidget {
             Theme.of(context).accentColor,
           ]),
     );
+  }
+
+  Widget _makeLoginButton(
+      {String imageLocation, BuildContext context, String tooltipText = ""}) {
+    return Container(
+        width: 50.0,
+        height: 50.0,
+        decoration: BoxDecoration(color: Colors.transparent),
+        child: IconButton(
+          icon: Image.asset(
+            imageLocation,
+            fit: BoxFit.cover,
+          ),
+          tooltip: tooltipText,
+          onPressed: () => {},
+        ));
   }
 }
