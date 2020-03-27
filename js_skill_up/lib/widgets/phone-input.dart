@@ -14,32 +14,27 @@ class _PhoneInputState extends State<PhoneInput> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16),
       height: 70,
-      decoration: BoxDecoration(
-          color: Colors.transparent,
-          border:
-              Border.all(width: 1.0, color: Theme.of(context).primaryColorDark),
-          borderRadius: BorderRadius.all(Radius.circular(8.0))),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: TextField(
-              keyboardType: TextInputType.number,
-              onChanged: (value) {},
-              decoration: InputDecoration.collapsed(
-                hintText: "Mobile No.",
-              ),
-              inputFormatters: <TextInputFormatter>[
-                WhitelistingTextInputFormatter.digitsOnly
-              ],
-              style: TextStyle(fontSize: 20.0),
+      decoration: BoxDecoration(color: Colors.transparent),
+      child: TextField(
+        keyboardType: TextInputType.number,
+        onChanged: (value) {},
+        decoration: InputDecoration(
+            suffixIcon: Icon(Icons.chevron_right),
+            hasFloatingPlaceholder: true,
+            labelText: "Mobile No.",
+            focusColor: Theme.of(context).primaryColorDark,
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
             ),
-          ),
-          IconButton(
-            icon: Icon(Icons.chevron_right),
-            color: Theme.of(context).primaryColorDark,
-            onPressed: () {},
-          )
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
+            )),
+        inputFormatters: <TextInputFormatter>[
+          WhitelistingTextInputFormatter.digitsOnly
         ],
+        style: TextStyle(
+          fontSize: 20.0,
+        ),
       ),
     );
   }

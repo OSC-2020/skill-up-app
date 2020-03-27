@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
               SizedBox(height: 60.0),
               PhoneInput(),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40.0),
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
                 child: Divider(
                   color: Colors.grey,
                 ),
@@ -70,12 +70,12 @@ class LoginScreen extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           stops: [
-            0.25,
-            0.75
+            0.60,
+            1
           ],
           colors: [
-            Theme.of(context).primaryColor,
             Theme.of(context).accentColor,
+            Theme.of(context).primaryColor,
           ]),
     );
   }
