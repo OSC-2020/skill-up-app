@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:js_skill_up/redux/models/app_state.dart';
+import 'package:js_skill_up/redux/models/user_model.dart';
+import 'package:js_skill_up/redux/reducers/user_reducer.dart';
 import 'package:js_skill_up/widgets/phone-input.dart';
+
+typedef LoginSuccessCallBack(String method);
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -31,31 +37,35 @@ class LoginScreen extends StatelessWidget {
               ),
               SizedBox(height: 60.0),
               PhoneInput(),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                child: Divider(
-                  color: Colors.grey,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    _makeLoginButton(
-                        imageLocation: "assets/icons/google.png",
-                        context: context,
-                        tooltipText: "Login with Google"),
-                    _makeLoginButton(
-                        imageLocation: "assets/icons/facebook.png",
-                        context: context,
-                        tooltipText: "Login with Facebook"),
-                    _makeLoginButton(
-                        imageLocation: "assets/icons/github.png",
-                        context: context,
-                        tooltipText: "Login with Github"),
-                  ],
-                ),
+              SizedBox(height: 100.0),
+              StoreConnector<AppState, LoginSuccessCallBack>(
+                converter: (store) {
+                  return (String method) {
+                    print(method);
+                    // Navigator.push(context, HomeScreen())
+                    store.dispatch(
+                        GetUserAction(UserModel(username: "Rahul Barwal")));
+                  };
+                },
+                builder: (context, callback) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        _makeLoginButton(
+                            "assets/icons/google.png", context, callback,
+                            tooltipText: "Login with Google"),
+                        _makeLoginButton(
+                            "assets/icons/facebook.png", context, callback,
+                            tooltipText: "Login with Facebook"),
+                        _makeLoginButton(
+                            "assets/icons/github.png", context, callback,
+                            tooltipText: "Login with Github"),
+                      ],
+                    ),
+                  );
+                },
               )
             ],
           ),
@@ -81,7 +91,8 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget _makeLoginButton(
-      {String imageLocation, BuildContext context, String tooltipText = ""}) {
+      String imageLocation, BuildContext context, LoginSuccessCallBack callBack,
+      {String tooltipText = ""}) {
     return Container(
         width: 50.0,
         height: 50.0,
@@ -92,7 +103,7 @@ class LoginScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           tooltip: tooltipText,
-          onPressed: () => {},
+          onPressed: () => callBack(tooltipText),
         ));
   }
 }

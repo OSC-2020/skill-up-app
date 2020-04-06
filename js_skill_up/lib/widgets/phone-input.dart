@@ -22,6 +22,7 @@ class _PhoneInputState extends State<PhoneInput> {
             suffixIcon: Icon(Icons.chevron_right),
             hasFloatingPlaceholder: true,
             labelText: "Mobile No.",
+            labelStyle: TextStyle(color: Colors.white),
             focusColor: Theme.of(context).primaryColorDark,
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
@@ -32,9 +33,7 @@ class _PhoneInputState extends State<PhoneInput> {
         inputFormatters: <TextInputFormatter>[
           WhitelistingTextInputFormatter.digitsOnly
         ],
-        style: TextStyle(
-          fontSize: 20.0,
-        ),
+        style: TextStyle(fontSize: 20.0, color: Colors.white),
       ),
     );
   }
