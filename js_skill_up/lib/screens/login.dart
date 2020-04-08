@@ -1,13 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:js_skill_up/locale/en/screens/login.dart';
 import 'package:js_skill_up/redux/models/app_state.dart';
 import 'package:js_skill_up/redux/models/user_model.dart';
 import 'package:js_skill_up/redux/reducers/user_reducer.dart';
 import 'package:js_skill_up/utils/login_utils.dart';
 import 'package:js_skill_up/widgets/phone-input.dart';
+import 'package:redux/redux.dart';
 
-typedef LoginSuccessCallBack(String method);
+typedef SaveToStoreCallback(String method);
 
 class LoginScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -20,8 +22,18 @@ class LoginScreen extends StatelessWidget {
 
   _firebaseSuccessLogin(FirebaseUser user) {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text("Welcome back ${user.email}"),
+      content: Text(LoginLocale.successSnack(user.email)),
     ));
+    this._saveToStore(user.displayName);
+  }
+
+  SaveToStoreCallback _saveToStore;
+
+  SaveToStoreCallback _getSaveToStoreCallBack(Store<AppState> store) {
+    return (String displayName) {
+      // Navigator.push(context, HomeScreen())
+      store.dispatch(GetUserAction(UserModel(username: displayName)));
+    };
   }
 
   @override
@@ -44,41 +56,35 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "JS Skill Up",
+                LoginLocale.title,
                 style: TextStyle(
                     color: Theme.of(context).primaryColorDark,
                     fontSize: 46,
-                    fontFamily: "Calibre-Semibold",
+                    fontFamily: LoginLocale.titleFont,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.0),
               ),
               SizedBox(height: 60.0),
               PhoneInput(),
               SizedBox(height: 100.0),
-              StoreConnector<AppState, LoginSuccessCallBack>(
-                converter: (store) {
-                  return (String method) {
-                    print(method);
-                    // Navigator.push(context, HomeScreen())
-                    store.dispatch(
-                        GetUserAction(UserModel(username: "Rahul Barwal")));
-                  };
-                },
-                builder: (context, callback) {
+              StoreConnector<AppState, SaveToStoreCallback>(
+                converter: (store) => this._getSaveToStoreCallBack(store),
+                builder: (BuildContext context, SaveToStoreCallback callback) {
+                  this._saveToStore = callback;
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        _makeLoginButton("assets/icons/google.png", context,
+                        _makeLoginButton(LoginLocale.googleImageIcon, context,
                             _googleButtonClick,
-                            tooltipText: "Login with Google"),
+                            tooltipText: LoginLocale.googleLoginToolTip),
                         _makeLoginButton(
-                            "assets/icons/facebook.png", context, callback,
-                            tooltipText: "Login with Facebook"),
+                            LoginLocale.facebookImageIcon, context, callback,
+                            tooltipText: LoginLocale.facebookLoginToolTip),
                         _makeLoginButton(
-                            "assets/icons/github.png", context, callback,
-                            tooltipText: "Login with Github"),
+                            LoginLocale.githubImageIcon, context, callback,
+                            tooltipText: LoginLocale.githubLoginToolTip),
                       ],
                     ),
                   );
