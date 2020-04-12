@@ -5,11 +5,13 @@ import 'package:js_skill_up/locale/en/screens/login.dart';
 import 'package:js_skill_up/redux/models/app_state.dart';
 import 'package:js_skill_up/redux/models/user_model.dart';
 import 'package:js_skill_up/redux/reducers/user_reducer.dart';
+import 'package:js_skill_up/screens/homepage.dart';
+import 'package:js_skill_up/utils/endpoints/login_http.dart';
 import 'package:js_skill_up/utils/login_utils.dart';
 import 'package:js_skill_up/widgets/phone-input.dart';
 import 'package:redux/redux.dart';
 
-typedef SaveToStoreCallback(String method);
+typedef SaveToStoreCallback(UserModel user);
 
 class LoginScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -24,15 +26,41 @@ class LoginScreen extends StatelessWidget {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
       content: Text(LoginLocale.successSnack(user.email)),
     ));
-    this._saveToStore(user.displayName);
+    _loginToApp(user);
+  }
+
+  _loginToApp(FirebaseUser user) async {
+    try {
+      UserModel appUser = await LoginEndPoints().loginToApp();
+      this._saveToStore(appUser);
+    } catch (e) {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text(LoginLocale.failure),
+          duration: const Duration(
+              minutes: LoginLocale.configLoginFailSnackBarDuration),
+          action: SnackBarAction(
+            label: LoginLocale.retryLabel,
+            onPressed: () {
+              // Some code to undo the change.
+              _loginToApp(user);
+              _scaffoldKey.currentState.hideCurrentSnackBar();
+            },
+          )));
+
+      //TODO: DELETE this code after server side code is done
+      // Allowing dummy Login
+      print('FAILED! as server is not there so dummy login');
+      _saveToStore(UserModel(username: "rahulbarwal", token: "token"));
+    }
   }
 
   SaveToStoreCallback _saveToStore;
 
   SaveToStoreCallback _getSaveToStoreCallBack(Store<AppState> store) {
-    return (String displayName) {
-      // Navigator.push(context, HomeScreen())
-      store.dispatch(GetUserAction(UserModel(username: displayName)));
+    return (UserModel user) {
+      Navigator.push(_scaffoldKey.currentContext,
+          MaterialPageRoute(builder: (context) => HomeScreen()));
+      store.dispatch(GetUserAction(user));
     };
   }
 
@@ -60,13 +88,13 @@ class LoginScreen extends StatelessWidget {
                 style: TextStyle(
                     color: Theme.of(context).primaryColorDark,
                     fontSize: 46,
-                    fontFamily: LoginLocale.titleFont,
+                    fontFamily: LoginLocale.configTitleFont,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.0),
               ),
-              SizedBox(height: 60.0),
+              SizedBox(height: 70.0),
               PhoneInput(),
-              SizedBox(height: 100.0),
+              SizedBox(height: 40.0),
               StoreConnector<AppState, SaveToStoreCallback>(
                 converter: (store) => this._getSaveToStoreCallBack(store),
                 builder: (BuildContext context, SaveToStoreCallback callback) {
