@@ -11,9 +11,10 @@ class LoginLocale {
 
   static Function successSnack = (email) => "Welcome back $email";
   static String failure = "Failed to log you in.";
+  static String failureSlowNetwork = "Slow internet connection";
   static String retryLabel = "Retry";
 
-  // Config changes
+  // Config
   static String configTitleFont = "Calibre-Semibold";
   static const int configLoginFailSnackBarDuration = 1;
 }

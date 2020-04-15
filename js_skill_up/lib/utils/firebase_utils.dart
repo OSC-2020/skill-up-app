@@ -3,22 +3,29 @@ import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 typedef FirebaseLoginSuccessCallback(FirebaseUser user);
+typedef FirebaseLoginFailureCallback({EFailureReasons reason, String message});
+
+enum EFailureReasons { SlowNetwork, UnknownError }
 
 class FirebaseLoginUtils {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  FirebaseLoginUtils(
-      {FirebaseLoginSuccessCallback successCallback, failureCallback}) {
+  final FirebaseLoginFailureCallback failureCallback;
+  final FirebaseLoginSuccessCallback successCallback;
+
+  FirebaseLoginUtils(this.successCallback, this.failureCallback) {
+    assert(this.successCallback != null);
+    assert(this.failureCallback != null);
     try {
-      this._attachGoogleListener(successCallback);
+      this._attachGoogleListener();
     } catch (e) {
       print('Exception in google sign in listner: \n $e');
-      failureCallback();
+      this.failureCallback();
     }
   }
 
-  _attachGoogleListener(successCallback) {
+  _attachGoogleListener() {
     _googleSignIn.onCurrentUserChanged
         .listen((GoogleSignInAccount googleUser) async {
       final GoogleSignInAuthentication googleAuth =
@@ -30,7 +37,7 @@ class FirebaseLoginUtils {
       );
 
       FirebaseUser user = (await _auth.signInWithCredential(credential)).user;
-      successCallback(user);
+      this.successCallback(user);
     });
   }
 
@@ -38,11 +45,11 @@ class FirebaseLoginUtils {
     try {
       await _googleSignIn.signIn();
     } on PlatformException {
-      // TODO: configure error callback to this class
-      // and call it here to show error to user in this case.
       print("Problem with internet check your internet connection");
+      this.failureCallback(reason: EFailureReasons.SlowNetwork);
     } catch (e) {
       print('Got Exception while signing in with google \n: $e');
+      this.failureCallback(reason: EFailureReasons.UnknownError, message: e);
     }
   }
 }

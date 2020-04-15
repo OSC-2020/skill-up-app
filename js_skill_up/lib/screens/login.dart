@@ -16,18 +16,33 @@ typedef SaveToStoreCallback(UserModel user);
 
 class LoginScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  FirebaseLoginUtils _loginUtils;
+  FirebaseLoginUtils _firebaseUtils;
 
   LoginScreen() {
-    this._loginUtils =
-        FirebaseLoginUtils(successCallback: _firebaseSuccessLogin);
+    this._firebaseUtils =
+        FirebaseLoginUtils(_firebaseLoginSuccess, _firebaseLoginFailure);
   }
 
-  _firebaseSuccessLogin(FirebaseUser user) {
+  _showSimpleSnackBar(String message) {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text(LoginLocale.successSnack(user.email)),
+      content: Text(message),
     ));
+  }
+
+  _firebaseLoginSuccess(FirebaseUser user) {
+    _showSimpleSnackBar(LoginLocale.successSnack(user.email));
     _loginToApp(user);
+  }
+
+  _firebaseLoginFailure({EFailureReasons reason, String message}) {
+    switch (reason) {
+      case EFailureReasons.SlowNetwork:
+        _showSimpleSnackBar(LoginLocale.failureSlowNetwork);
+        break;
+      case EFailureReasons.UnknownError:
+        _showSimpleSnackBar(LoginLocale.failure);
+        break;
+    }
   }
 
   _loginToApp(FirebaseUser user) async {
@@ -160,5 +175,5 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  _googleButtonClick() => this._loginUtils.signInWithGoogle();
+  _googleButtonClick() => this._firebaseUtils.signInWithGoogle();
 }
