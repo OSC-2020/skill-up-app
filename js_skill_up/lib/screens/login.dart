@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:js_skill_up/endpoints/login_http.dart';
 import 'package:js_skill_up/locale/en/screens/login.dart';
+import 'package:js_skill_up/main.dart';
+import 'package:js_skill_up/redux/middleware/login_state_middleware.dart';
 import 'package:js_skill_up/redux/models/app_state.dart';
 import 'package:js_skill_up/redux/models/user_model.dart';
-import 'package:js_skill_up/redux/reducers/user_reducer.dart';
-import 'package:js_skill_up/screens/homepage.dart';
-import 'package:js_skill_up/utils/endpoints/login_http.dart';
-import 'package:js_skill_up/utils/login_utils.dart';
+import 'package:js_skill_up/routes.dart';
+import 'package:js_skill_up/utils/firebase_utils.dart';
 import 'package:js_skill_up/widgets/phone-input.dart';
 import 'package:redux/redux.dart';
 
@@ -50,7 +51,8 @@ class LoginScreen extends StatelessWidget {
       //TODO: DELETE this code after server side code is done
       // Allowing dummy Login
       print('FAILED! as server is not there so dummy login');
-      _saveToStore(UserModel(username: "rahulbarwal", token: "token"));
+      _saveToStore(UserModel(
+          username: "rahulbarwal", name: "Rahul Barwal", token: "token"));
     }
   }
 
@@ -58,9 +60,8 @@ class LoginScreen extends StatelessWidget {
 
   SaveToStoreCallback _getSaveToStoreCallBack(Store<AppState> store) {
     return (UserModel user) {
-      Navigator.push(_scaffoldKey.currentContext,
-          MaterialPageRoute(builder: (context) => HomeScreen()));
-      store.dispatch(GetUserAction(user));
+      store.dispatch(saveLoginState(user));
+      GlobalKeys.navKey.currentState.pushNamed(AppRoutes.homepage);
     };
   }
 

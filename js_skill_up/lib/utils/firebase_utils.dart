@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 typedef FirebaseLoginSuccessCallback(FirebaseUser user);
@@ -36,6 +37,10 @@ class FirebaseLoginUtils {
   signInWithGoogle() async {
     try {
       await _googleSignIn.signIn();
+    } on PlatformException {
+      // TODO: configure error callback to this class
+      // and call it here to show error to user in this case.
+      print("Problem with internet check your internet connection");
     } catch (e) {
       print('Got Exception while signing in with google \n: $e');
     }

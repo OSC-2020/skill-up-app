@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:js_skill_up/redux/middleware/login_state_middleware.dart';
 import 'package:js_skill_up/redux/models/app_state.dart';
 import 'package:js_skill_up/redux/reducers/app_reducers.dart';
+import 'package:js_skill_up/routes.dart';
 import 'package:js_skill_up/screens/homepage.dart';
-import 'package:js_skill_up/screens/login.dart';
 import 'package:redux/redux.dart';
+import 'package:redux_thunk/redux_thunk.dart';
+
+class GlobalKeys {
+  static final navKey = new GlobalKey<NavigatorState>();
+}
 
 void main() {
-  final store = Store<AppState>(appReducer, initialState: AppState.initial());
+  final store = Store<AppState>(appReducer,
+      initialState: AppState.initial(), middleware: [thunkMiddleware]);
 
   runApp(MyApp(store));
 }
@@ -29,11 +36,11 @@ class MyApp extends StatelessWidget {
           primaryColorDark: Color(0xFF1A535C),
           accentColor: Color(0xFFFF6B6B),
         ),
-        home: LoginScreen(),
-        routes: {
-          '/login': (BuildContext context) => LoginScreen(),
-          '/homepage': (BuildContext context) => HomeScreen()
-        },
+        home: HomeScreen(
+          checkUserLogin: () => _store.dispatch(initialiseLoginState),
+        ),
+        onGenerateRoute: handleRoute,
+        navigatorKey: GlobalKeys.navKey,
       ),
     );
   }

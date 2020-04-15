@@ -1,17 +1,16 @@
 import 'package:js_skill_up/redux/models/user_model.dart';
 
 getUserReducer(UserModel user, dynamic action) {
-  if (action is GetUserAction) {
-    print(action.user.username);
+  if (action is SaveUserAction) {
     return action.user;
   }
   return user;
 }
 
-class GetUserAction {
+class SaveUserAction {
   final UserModel _user;
 
-  GetUserAction(this._user);
+  SaveUserAction(this._user);
 
   UserModel get user => this._user;
 }
