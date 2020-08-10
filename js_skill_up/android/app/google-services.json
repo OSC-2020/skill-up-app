@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "881015100612",
+    "firebase_url": "https://skill-up-test-3b775.firebaseio.com",
+    "project_id": "skill-up-test-3b775",
+    "storage_bucket": "skill-up-test-3b775.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881015100612:android:5b4f6e6bd191cfc59be591",
+        "android_client_info": {
+          "package_name": "com.example.js_skill_up"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "881015100612-497t9m7jnbm8af9ou8uacie0vv4g4dnk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.js_skill_up",
+            "certificate_hash": "0638f519f06aca94360b7d5fd0914016f29e5603"
+          }
+        },
+        {
+          "client_id": "881015100612-rfmribfqk814c80h1qrpdqufufm7ks6l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtA4FmQy7dDh7DSnZ5lTr2CwzCYegapJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "881015100612-rfmribfqk814c80h1qrpdqufufm7ks6l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
