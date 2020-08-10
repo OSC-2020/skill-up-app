@@ -30,7 +30,7 @@ ThunkAction<AppState> initialiseLoginState = (Store<AppState> store) async {
   final name = await SharedPrefsUtils.getValue(SharedPrefsConstants.USER_NAME);
 
   //TODO: better logic for token check when backend will be integrated
-  if (token ?? "".length > 1) {
+  if ((token ?? "").length > 1) {
     store.dispatch(
         SaveUserAction(new UserModel(token: token, email: email, name: name)));
   } else {
