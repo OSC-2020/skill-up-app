@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:js_skill_up/widgets/quiz_ui/progress_indicator.dart';
+import 'package:js_skill_up/widgets/quiz_ui/quiz_footer.dart';
+import 'package:js_skill_up/widgets/quiz_ui/quiz_header.dart';
 
 class QuizScreen extends StatelessWidget {
   QuizScreen({
@@ -13,12 +14,17 @@ class QuizScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            QuizProgressIndicator(
+            QuizHeader(
               progressValue: 0.2,
             ),
-            Divider(
-              color: Colors.grey,
-            )
+            Expanded(
+              child: Container(
+                color: Colors.grey,
+              ),
+            ),
+            QuizFooter(
+                explanationString:
+                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum")
           ],
         ),
       ),

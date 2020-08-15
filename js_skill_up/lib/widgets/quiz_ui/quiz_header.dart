@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class QuizProgressIndicator extends StatelessWidget {
+class QuizHeader extends StatelessWidget {
   final double progressValue;
 
-  QuizProgressIndicator({this.progressValue});
+  QuizHeader({this.progressValue});
 
   @override
   Widget build(BuildContext context) {
