@@ -90,7 +90,7 @@ class LoginScreen extends StatelessWidget {
 
   Widget _buildBody(context) {
     return GestureDetector(
-      // To remove keyboard when user clicks on screen after focussing on input
+      // To remove keyboard when user clicks on screen after focusing on input
       onTap: () => FocusScope.of(context).unfocus(),
       child: Container(
         decoration: _getBackgroundDecoration(context),

@@ -20,7 +20,7 @@ class _PhoneInputState extends State<PhoneInput> {
         onChanged: (value) {},
         decoration: InputDecoration(
             suffixIcon: Icon(Icons.chevron_right),
-            hasFloatingPlaceholder: true,
+            floatingLabelBehavior: FloatingLabelBehavior.never,
             labelText: "Mobile No.",
             labelStyle: TextStyle(color: Colors.white),
             focusColor: Theme.of(context).primaryColorDark,
