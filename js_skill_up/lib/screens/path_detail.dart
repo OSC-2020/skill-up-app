@@ -27,15 +27,8 @@ class PathDetailScreen extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       PathContentWidget(
-                        question:
-                            detail.content[activeIndex].content[0].content,
+                        contents: detail.content[activeIndex].content,
                       ),
-//                      QuizOption(
-//                        option: 'True',
-//                      ),
-//                      QuizOption(
-//                        option: 'False',
-//                      )
                     ],
                   ),
                 ),

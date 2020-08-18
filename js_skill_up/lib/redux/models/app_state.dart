@@ -14,25 +14,36 @@ class AppState {
   factory AppState.initial() {
     return AppState(
       user: null,
-      currentPath: new PathDetailModel(
+      currentPath: PathDetailModel(
         containsContent: true,
         id: "1",
         title: 'Introduction',
         content: [
-          new PathContentModel(content: [
-            new ContentDetailModel(content: 'Hi I am First', contentType: 1)
+          PathContentModel(content: [
+            ContentDetailModel(content: 'Hi I am First', contentType: 1)
           ], footerHelpText: 'yay this works 1'),
-          new PathContentModel(content: [
-            new ContentDetailModel(content: 'Hi I am Second', contentType: 1)
+          PathContentModel(content: [
+            ContentDetailModel(
+                content: 'Lets get started with variables', contentType: 1),
+            ContentDetailModel(content: 'var x = 2;', contentType: 2),
+            ContentDetailModel(
+                content: 'Variables can be declared using const, let or var',
+                contentType: 1),
+            ContentDetailModel(
+                content: 'const a = 12;\n let d = 12', contentType: 2),
+            ContentDetailModel(
+                content:
+                    'const, let create block scoped variables.\n While var creates function scoped variables.',
+                contentType: 1),
           ], footerHelpText: 'yay this works 2'),
-          new PathContentModel(content: [
-            new ContentDetailModel(content: 'Hi I am Third', contentType: 1)
+          PathContentModel(content: [
+            ContentDetailModel(content: 'Hi I am Third', contentType: 1)
           ], footerHelpText: 'yay this works 3'),
-          new PathContentModel(content: [
-            new ContentDetailModel(content: 'Hi I am Fourth', contentType: 1)
+          PathContentModel(content: [
+            ContentDetailModel(content: 'Hi I am Fourth', contentType: 1)
           ], footerHelpText: 'yay this works 4'),
-          new PathContentModel(content: [
-            new ContentDetailModel(content: 'Hi I am Second', contentType: 1)
+          PathContentModel(content: [
+            ContentDetailModel(content: 'Hi I am Second', contentType: 1)
           ], footerHelpText: 'yay this works 2'),
         ],
       ),

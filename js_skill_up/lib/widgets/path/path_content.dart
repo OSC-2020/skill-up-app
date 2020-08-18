@@ -1,19 +1,56 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:js_skill_up/redux/models/journeys/paths/base/path_base.dart';
+
+class AllowedWidgets {
+  static const int SIMPLE_TEXT = 1;
+  static const int CODE_BLOCK = 2;
+}
 
 class PathContentWidget extends StatelessWidget {
-  final String question;
+  final List<ContentDetailModel> contents;
 
-  PathContentWidget({this.question});
+  PathContentWidget({this.contents});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
-      child: Row(
-        children: <Widget>[
-          Text(this.question),
-        ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: _buildContents(context, contents),
       ),
     );
+  }
+
+  _buildContents(BuildContext context, List<ContentDetailModel> contents) {
+    List<Widget> widgets = List<Widget>();
+    for (int i = 0; i < contents.length; i++) {
+      switch (contents[i].contentType) {
+        case AllowedWidgets.CODE_BLOCK:
+          widgets.add(
+            Container(
+              padding: EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColorDark,
+                borderRadius: BorderRadius.circular(4.0),
+              ),
+              child: Text(
+                contents[i].content,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          );
+          break;
+        case AllowedWidgets.SIMPLE_TEXT:
+        default:
+          widgets.add(Text(contents[i].content));
+          break;
+      }
+      widgets.add(
+        SizedBox(height: 20),
+      );
+    }
+    return widgets;
   }
 }
