@@ -40,8 +40,11 @@ class PathDetailScreen extends StatelessWidget {
                   ),
                 ),
                 PathFooterWidget(
-                    explanationString:
-                        detail.content[activeIndex].footerHelpText),
+                  explanationString: detail.content[activeIndex].footerHelpText,
+                  isQuiz: false,
+                  isFirstStep: (detail.activeIndex ?? 0) == 0,
+                  isLastStep: detail.activeIndex == detail.content.length - 1,
+                ),
               ],
             );
           },
