@@ -7,8 +7,8 @@ import 'package:redux/redux.dart';
 class PathFooterWidget extends StatelessWidget {
   final String explanationString;
   final bool isQuiz;
-  final bool isLastStep;
-  final bool isFirstStep;
+  final bool isLastPage;
+  final bool hidePrev;
   static const String PAGE_TYPE_CONTENT = 'content';
   static const String PAGE_TYPE_QUIZ_CORRECT = 'correct';
   static const String PAGE_TYPE_Quiz_WRONG = 'wrong';
@@ -16,8 +16,8 @@ class PathFooterWidget extends StatelessWidget {
   PathFooterWidget({
     this.explanationString = "",
     this.isQuiz = false,
-    this.isFirstStep,
-    this.isLastStep,
+    this.hidePrev,
+    this.isLastPage,
   });
 
   @override
@@ -46,7 +46,7 @@ class PathFooterWidget extends StatelessWidget {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      isFirstStep
+                      hidePrev
                           ? Text("")
                           : IconButton(
                               color: Theme.of(context).primaryColor,
@@ -62,18 +62,24 @@ class PathFooterWidget extends StatelessWidget {
                           child: this.explanationString.length > 0
                               ? Text(this.explanationString)
                               : Container()),
-                      isLastStep
-                          ? Text("")
-                          : FloatingActionButton.extended(
-                              icon: Icon(Icons.arrow_forward_ios),
-                              label: Text("Next"),
-                              onPressed: () {
-                                store.dispatch(
-                                  PathDetailNextPageAction(
-                                      store.state.currentPath),
-                                );
-                              },
-                            )
+                      FloatingActionButton.extended(
+                        backgroundColor: isLastPage
+                            ? Colors.lightGreen
+                            : Theme.of(context).accentColor,
+                        icon: Icon(
+                          Icons.arrow_forward_ios,
+                        ),
+                        label: isLastPage ? Text("Done") : Text("Next"),
+                        onPressed: () {
+                          store.dispatch(
+                            isLastPage
+                                ? PathDetailCompletePathAction(
+                                    store.state.currentPath)
+                                : PathDetailNextPageAction(
+                                    store.state.currentPath),
+                          );
+                        },
+                      )
                     ],
                   );
                 })),

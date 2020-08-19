@@ -1,12 +1,13 @@
 import 'package:js_skill_up/redux/models/journeys/paths/base/path_base.dart';
 
-class PathContentModel {
+class PathTheoryModel {
   final List<ContentDetailModel> content;
-
+  final int pageType;
   final String footerHelpText;
 
-  PathContentModel({
+  PathTheoryModel({
     this.content,
+    this.pageType = PathPageType.THEORY,
     this.footerHelpText,
   });
 }

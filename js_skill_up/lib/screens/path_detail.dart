@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:js_skill_up/redux/models/app_state.dart';
+import 'package:js_skill_up/redux/models/journeys/paths/base/path_base.dart';
 import 'package:js_skill_up/redux/models/journeys/paths/path_detail.dart';
-import 'package:js_skill_up/widgets/path/path_content.dart';
 import 'package:js_skill_up/widgets/path/path_footer.dart';
 import 'package:js_skill_up/widgets/path/path_header.dart';
+import 'package:js_skill_up/widgets/path/path_quiz.dart';
+import 'package:js_skill_up/widgets/path/path_theory.dart';
 
 class PathDetailScreen extends StatelessWidget {
   @override
@@ -17,26 +19,32 @@ class PathDetailScreen extends StatelessWidget {
           builder: (BuildContext context, PathDetailModel detail) {
             final int activeIndex = (detail.activeIndex ?? 0);
             final double progressVal =
-                (activeIndex + 1) / detail.content.length;
+                (activeIndex + 1) / detail.contents.length;
+
+            dynamic currentPage = detail.contents[activeIndex];
+            final bool isQuiz = currentPage.pageType == PathPageType.QUIZ;
+
             return Column(
               children: <Widget>[
                 PathHeaderWidget(
                   progressValue: progressVal,
                 ),
                 Expanded(
-                  child: Column(
-                    children: <Widget>[
-                      PathContentWidget(
-                        contents: detail.content[activeIndex].content,
-                      ),
-                    ],
-                  ),
+                  child: isQuiz
+                      ? PathQuizWidget(
+                          quizPage: currentPage,
+                        )
+                      : PathTheoryWidget(
+                          currentPage: currentPage,
+                        ),
                 ),
                 PathFooterWidget(
-                  explanationString: detail.content[activeIndex].footerHelpText,
+                  explanationString: currentPage.footerHelpText,
                   isQuiz: false,
-                  isFirstStep: (detail.activeIndex ?? 0) == 0,
-                  isLastStep: detail.activeIndex == detail.content.length - 1,
+                  hidePrev: (detail.activeIndex ?? 0) == 0 ||
+                      (detail.activeIndex >= detail.lastContentPagePos),
+                  isLastPage:
+                  (detail.activeIndex == detail.contents.length - 1),
                 ),
               ],
             );

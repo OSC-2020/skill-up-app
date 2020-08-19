@@ -1,7 +1,7 @@
 import 'package:js_skill_up/redux/models/journeys/paths/base/path_base.dart';
 import 'package:js_skill_up/redux/models/journeys/paths/base/path_content.dart';
 
-class PathQuizModel extends PathContentModel {
+class PathQuizModel extends PathTheoryModel {
   final int numberOptions;
   final List<ContentDetailModel> options;
   final int correctResponse;
@@ -12,5 +12,9 @@ class PathQuizModel extends PathContentModel {
     this.correctResponse,
     List<ContentDetailModel> content,
     String footerHelpText,
-  }) : super(content: content, footerHelpText: footerHelpText);
+  }) : super(
+          content: content,
+          pageType: PathPageType.QUIZ,
+          footerHelpText: footerHelpText,
+        );
 }
