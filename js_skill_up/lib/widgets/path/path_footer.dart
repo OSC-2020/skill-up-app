@@ -52,10 +52,7 @@ class PathFooterWidget extends StatelessWidget {
                               color: Theme.of(context).primaryColor,
                               icon: Icon(Icons.arrow_back_ios),
                               onPressed: () {
-                                store.dispatch(
-                                  PathDetailPreviousPageAction(
-                                      store.state.currentPath),
-                                );
+                                store.dispatch(PathDetailPreviousPageAction());
                               },
                             ),
                       Expanded(
@@ -73,10 +70,8 @@ class PathFooterWidget extends StatelessWidget {
                         onPressed: () {
                           store.dispatch(
                             isLastPage
-                                ? PathDetailCompletePathAction(
-                                    store.state.currentPath)
-                                : PathDetailNextPageAction(
-                                    store.state.currentPath),
+                                ? PathDetailCompletePathAction()
+                                : PathDetailNextPageAction(),
                           );
                         },
                       )

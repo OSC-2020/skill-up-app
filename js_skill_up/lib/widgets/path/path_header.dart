@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:js_skill_up/redux/models/app_state.dart';
+import 'package:js_skill_up/redux/reducers/path_detail_reducer.dart';
+import 'package:redux/redux.dart';
 
 class PathHeaderWidget extends StatelessWidget {
   final double progressValue;
@@ -14,10 +18,18 @@ class PathHeaderWidget extends StatelessWidget {
         padding: const EdgeInsets.all(4.0),
         child: Row(
           children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () {},
-            ),
+            StoreConnector<AppState, Store<AppState>>(
+                converter: (store) => store,
+                builder: (BuildContext context, Store<AppState> store) {
+                  return IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      store.dispatch(
+                        PathDetailStartPathAction(),
+                      );
+                    },
+                  );
+                }),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(right: 16.0),

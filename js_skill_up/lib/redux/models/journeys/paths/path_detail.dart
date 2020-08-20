@@ -22,4 +22,19 @@ class PathDetailModel {
       this.lastContentPagePos = contents.length;
     }
   }
+
+  PathDetailModel copyWith({
+    isCompleted,
+    activeIndex,
+  }) {
+    return PathDetailModel(
+      id: this.id,
+      title: this.title,
+      containsContent: this.containsContent,
+      lastContentPagePos: this.lastContentPagePos,
+      contents: this.contents,
+      isCompleted: isCompleted ?? this.isCompleted,
+      activeIndex: activeIndex ?? this.activeIndex,
+    );
+  }
 }

@@ -2,70 +2,42 @@ import 'package:js_skill_up/redux/models/journeys/paths/path_detail.dart';
 
 pathDetailReducer(PathDetailModel path, dynamic action) {
   if (action is PathDetailNextPageAction) {
-    if (action.pathDetail.activeIndex ==
-        action.pathDetail.contents.length - 1) {
-      return action.pathDetail;
+    if (path.activeIndex == path.contents.length - 1) {
+      return path;
     }
-    return PathDetailModel(
-      id: action.pathDetail.id,
-      title: action.pathDetail.title,
-      containsContent: action.pathDetail.containsContent,
-      lastContentPagePos: action.pathDetail.lastContentPagePos,
-      isCompleted: action.pathDetail.isCompleted,
-      contents: action.pathDetail.contents,
-      activeIndex: (action.pathDetail.activeIndex ?? 0) + 1,
-    );
+    return path.copyWith(activeIndex: (path.activeIndex ?? 0) + 1);
   }
+
   if (action is PathDetailPreviousPageAction) {
-    if (action.pathDetail.activeIndex == 0) {
-      return action.pathDetail;
+    if (path.activeIndex == 0) {
+      return path;
     }
-    return PathDetailModel(
-      id: action.pathDetail.id,
-      title: action.pathDetail.title,
-      containsContent: action.pathDetail.containsContent,
-      lastContentPagePos: action.pathDetail.lastContentPagePos,
-      isCompleted: action.pathDetail.isCompleted,
-      contents: action.pathDetail.contents,
-      activeIndex: action.pathDetail.activeIndex - 1,
-    );
+    return path.copyWith(activeIndex: path.activeIndex - 1);
   }
+
   if (action is PathDetailCompletePathAction) {
     print('Completing the course');
-    return PathDetailModel(
-      id: action.pathDetail.id,
-      title: action.pathDetail.title,
-      containsContent: action.pathDetail.containsContent,
-      lastContentPagePos: action.pathDetail.lastContentPagePos,
-      isCompleted: true,
-      contents: action.pathDetail.contents,
-      activeIndex: action.pathDetail.activeIndex,
-    );
+    return path.copyWith(isCompleted: true);
+  }
+
+  if (action is PathDetailStartPathAction) {
+    print('Starting the course');
+    return path.copyWith(isCompleted: false);
+  }
+
+  if (action is PathDetailQuizSelectOptionAction) {
+    return path.copyWith(activeIndex: 0);
   }
 
   return path;
 }
 
-class PathDetailNextPageAction {
-  final PathDetailModel _pathDetail;
+class PathDetailStartPathAction {}
 
-  PathDetailNextPageAction(this._pathDetail);
+class PathDetailNextPageAction {}
 
-  PathDetailModel get pathDetail => this._pathDetail;
-}
+class PathDetailPreviousPageAction {}
 
-class PathDetailPreviousPageAction {
-  final PathDetailModel _pathDetail;
+class PathDetailCompletePathAction {}
 
-  PathDetailPreviousPageAction(this._pathDetail);
-
-  PathDetailModel get pathDetail => this._pathDetail;
-}
-
-class PathDetailCompletePathAction {
-  final PathDetailModel _pathDetail;
-
-  PathDetailCompletePathAction(this._pathDetail);
-
-  PathDetailModel get pathDetail => this._pathDetail;
-}
+class PathDetailQuizSelectOptionAction {}

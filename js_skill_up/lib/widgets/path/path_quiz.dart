@@ -69,8 +69,8 @@ class _QuizOption extends State<PathQuizOptionWidget> {
           decoration: BoxDecoration(
             border: _selected
                 ? Border(
-                left: BorderSide(
-                    width: 4.0, color: Theme.of(context).primaryColor))
+                    left: BorderSide(
+                        width: 4.0, color: Theme.of(context).primaryColor))
                 : Border.all(color: Color(0xFFdee1ec)),
           ),
           child: Row(

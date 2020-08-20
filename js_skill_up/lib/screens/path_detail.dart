@@ -44,7 +44,7 @@ class PathDetailScreen extends StatelessWidget {
                   hidePrev: (detail.activeIndex ?? 0) == 0 ||
                       (detail.activeIndex >= detail.lastContentPagePos),
                   isLastPage:
-                  (detail.activeIndex == detail.contents.length - 1),
+                      (detail.activeIndex == detail.contents.length - 1),
                 ),
               ],
             );
