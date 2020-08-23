@@ -1,4 +1,6 @@
+import 'package:js_skill_up/redux/models/journeys/paths/base/path_base.dart';
 import 'package:js_skill_up/redux/models/journeys/paths/base/path_content.dart';
+import 'package:js_skill_up/redux/models/journeys/paths/base/path_quiz.dart';
 
 class PathDetailModel {
   final String id;
@@ -24,8 +26,8 @@ class PathDetailModel {
   }
 
   PathDetailModel copyWith({
-    isCompleted,
-    activeIndex,
+    bool isCompleted,
+    int activeIndex,
   }) {
     return PathDetailModel(
       id: this.id,
@@ -33,6 +35,41 @@ class PathDetailModel {
       containsContent: this.containsContent,
       lastContentPagePos: this.lastContentPagePos,
       contents: this.contents,
+      isCompleted: isCompleted ?? this.isCompleted,
+      activeIndex: activeIndex ?? this.activeIndex,
+    );
+  }
+
+  PathDetailModel copyCurrentQuizPage(
+      {int currentPageIndex,
+      int optionIndex,
+      PathQuizPageState newQuizPageState}) {
+    if (newQuizPageState != null) {
+      print('ChangingState to $newQuizPageState');
+    }
+    int index = 0;
+    List<PathTheoryModel> newContents = this.contents.map((page) {
+      if (page.pageType == PathPageType.QUIZ && index == currentPageIndex) {
+        index++;
+        PathQuizModel newPage = page;
+        newPage = newPage.copyWith(
+            isCorrect:
+                newPage.correctOptionIndex == newPage.userSelectionOptionIndex,
+            selectedOptionIndex: optionIndex,
+            newQuizPageState: newQuizPageState);
+        return newPage;
+      }
+
+      index++;
+      return page;
+    }).toList();
+
+    return PathDetailModel(
+      id: this.id,
+      title: this.title,
+      containsContent: this.containsContent,
+      lastContentPagePos: this.lastContentPagePos,
+      contents: newContents,
       isCompleted: isCompleted ?? this.isCompleted,
       activeIndex: activeIndex ?? this.activeIndex,
     );

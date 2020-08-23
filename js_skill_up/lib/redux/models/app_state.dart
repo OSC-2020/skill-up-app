@@ -52,6 +52,7 @@ class AppState {
                   ContentDetailModel(content: 'Hi I am First', contentType: 1)
                 ],
                 footerHelpText: 'yay this works 1',
+                correctOptionIndex: 0,
                 options: [
                   ContentDetailModel(content: 'true', contentType: 1),
                   ContentDetailModel(content: 'false', contentType: 1),
@@ -74,6 +75,7 @@ class AppState {
                       contentType: 1),
                 ],
                 footerHelpText: 'yay this works 2',
+                correctOptionIndex: 2,
                 options: [
                   ContentDetailModel(content: '1', contentType: 1),
                   ContentDetailModel(content: '2', contentType: 1),

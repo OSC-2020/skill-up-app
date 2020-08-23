@@ -1,3 +1,4 @@
+import 'package:js_skill_up/redux/models/journeys/paths/base/path_quiz.dart';
 import 'package:js_skill_up/redux/models/journeys/paths/path_detail.dart';
 
 pathDetailReducer(PathDetailModel path, dynamic action) {
@@ -22,11 +23,20 @@ pathDetailReducer(PathDetailModel path, dynamic action) {
 
   if (action is PathDetailStartPathAction) {
     print('Starting the course');
-    return path.copyWith(isCompleted: false);
+    return path.copyWith(isCompleted: false, activeIndex: 0);
   }
 
   if (action is PathDetailQuizSelectOptionAction) {
-    return path.copyWith(activeIndex: 0);
+    return path.copyCurrentQuizPage(
+        currentPageIndex: path.activeIndex,
+        optionIndex: action.optionIndex,
+        newQuizPageState: PathQuizPageState.SELECTION_DONE);
+  }
+
+  if (action is PathDetailQuizShowCorrectnessAction) {
+    return path.copyCurrentQuizPage(
+        currentPageIndex: path.activeIndex,
+        newQuizPageState: PathQuizPageState.SHOW_CORRECTNESS);
   }
 
   return path;
@@ -40,4 +50,15 @@ class PathDetailPreviousPageAction {}
 
 class PathDetailCompletePathAction {}
 
-class PathDetailQuizSelectOptionAction {}
+// region QuizOption
+class PathDetailQuizSelectOptionAction {
+  final int optionIndex;
+
+  PathDetailQuizSelectOptionAction({
+    this.optionIndex,
+  });
+}
+
+class PathDetailQuizShowCorrectnessAction {}
+
+// endregion QuizOption

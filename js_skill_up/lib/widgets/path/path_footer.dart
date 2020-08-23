@@ -5,25 +5,27 @@ import 'package:js_skill_up/redux/reducers/path_detail_reducer.dart';
 import 'package:redux/redux.dart';
 
 class PathFooterWidget extends StatelessWidget {
-  final String explanationString;
-  final bool isQuiz;
-  final bool isLastPage;
-  final bool hidePrev;
   static const String PAGE_TYPE_CONTENT = 'content';
   static const String PAGE_TYPE_QUIZ_CORRECT = 'correct';
   static const String PAGE_TYPE_Quiz_WRONG = 'wrong';
 
+  final String explanationString;
+  final bool isLastPage;
+  final bool hidePrev;
+  final bool isNextDisabled;
+  final void Function() onNextClick;
+
   PathFooterWidget({
     this.explanationString = "",
-    this.isQuiz = false,
     this.hidePrev,
-    this.isLastPage,
+    @required this.isLastPage,
+    @required this.isNextDisabled,
+    this.onNextClick,
   });
 
   @override
   Widget build(BuildContext context) {
     String pageType = PAGE_TYPE_CONTENT;
-    if (isQuiz) {}
     return Column(
       children: <Widget>[
         Row(
@@ -39,47 +41,61 @@ class PathFooterWidget extends StatelessWidget {
           ],
         ),
         Padding(
-            padding: EdgeInsets.all(16.0),
-            child: StoreConnector<AppState, Store<AppState>>(
-                converter: (store) => store,
-                builder: (BuildContext context, Store<AppState> store) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      hidePrev
-                          ? Text("")
-                          : IconButton(
-                              color: Theme.of(context).primaryColor,
-                              icon: Icon(Icons.arrow_back_ios),
-                              onPressed: () {
-                                store.dispatch(PathDetailPreviousPageAction());
-                              },
-                            ),
-                      Expanded(
-                          child: this.explanationString.length > 0
-                              ? Text(this.explanationString)
-                              : Container()),
-                      FloatingActionButton.extended(
-                        backgroundColor: isLastPage
-                            ? Colors.lightGreen
-                            : Theme.of(context).accentColor,
-                        icon: Icon(
-                          Icons.arrow_forward_ios,
+          padding: EdgeInsets.all(16.0),
+          child: StoreConnector<AppState, Store<AppState>>(
+            converter: (store) => store,
+            builder: (BuildContext context, Store<AppState> store) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  hidePrev
+                      ? Text("")
+                      : IconButton(
+                          color: Theme.of(context).primaryColor,
+                          icon: Icon(Icons.arrow_back_ios),
+                          onPressed: () {
+                            store.dispatch(PathDetailPreviousPageAction());
+                          },
                         ),
-                        label: isLastPage ? Text("Done") : Text("Next"),
-                        onPressed: () {
-                          store.dispatch(
-                            isLastPage
-                                ? PathDetailCompletePathAction()
-                                : PathDetailNextPageAction(),
-                          );
-                        },
-                      )
-                    ],
-                  );
-                })),
+                  Expanded(
+                      child: this.explanationString.length > 0
+                          ? Text(this.explanationString)
+                          : Container()),
+                  FloatingActionButton.extended(
+                    backgroundColor: _getNextButtonBackgroundColor(
+                      context,
+                      isNextDisabled,
+                      isLastPage,
+                    ),
+                    icon: Icon(
+                      Icons.arrow_forward_ios,
+                    ),
+                    label: isLastPage ? Text("Done") : Text("Next"),
+                    onPressed: isNextDisabled
+                        ? null
+                        : () {
+                            if (this.onNextClick != null) {
+                              this.onNextClick();
+                            } else {
+                              throw UnimplementedError();
+                            }
+                          },
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
       ],
     );
+  }
+
+  _getNextButtonBackgroundColor(
+      BuildContext context, bool btnDisabled, bool isLast) {
+    if (btnDisabled) {
+      return Colors.grey;
+    }
+    return isLast ? Colors.lightGreen : Theme.of(context).accentColor;
   }
 
   getTopBorderColor(BuildContext context, String pageType) {
