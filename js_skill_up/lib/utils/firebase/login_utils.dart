@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-typedef FirebaseLoginSuccessCallback(FirebaseUser user);
+typedef FirebaseLoginSuccessCallback(User user);
 typedef FirebaseLoginFailureCallback({EFailureReasons reason, String message});
 
 enum EFailureReasons { SlowNetwork, UnknownError }
@@ -20,7 +20,7 @@ class FirebaseLoginUtils {
     try {
       this._attachGoogleListener();
     } catch (e) {
-      print('Exception in google sign in listner: \n $e');
+      print('Exception in google sign in listener: \n $e');
       this.failureCallback();
     }
   }
@@ -31,12 +31,12 @@ class FirebaseLoginUtils {
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
 
-      final AuthCredential credential = GoogleAuthProvider.getCredential(
+      final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      FirebaseUser user = (await _auth.signInWithCredential(credential)).user;
+      User user = (await _auth.signInWithCredential(credential)).user;
       this.successCallback(user);
     });
   }

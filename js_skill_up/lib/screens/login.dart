@@ -1,14 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:js_skill_up/endpoints/login_http.dart';
 import 'package:js_skill_up/locale/en/screens/login.dart';
 import 'package:js_skill_up/main.dart';
 import 'package:js_skill_up/redux/middleware/login_state_middleware.dart';
 import 'package:js_skill_up/redux/models/app_state.dart';
 import 'package:js_skill_up/redux/models/user_model.dart';
 import 'package:js_skill_up/routes.dart';
-import 'package:js_skill_up/utils/firebase_utils.dart';
+import 'package:js_skill_up/utils/firebase/login_utils.dart';
 import 'package:js_skill_up/widgets/phone-input.dart';
 import 'package:redux/redux.dart';
 
@@ -29,7 +28,7 @@ class LoginScreen extends StatelessWidget {
     ));
   }
 
-  _firebaseLoginSuccess(FirebaseUser user) {
+  _firebaseLoginSuccess(User user) {
     _showSimpleSnackBar(LoginLocale.successSnack(user.email));
     _loginToApp(user);
   }
@@ -45,9 +44,8 @@ class LoginScreen extends StatelessWidget {
     }
   }
 
-  _loginToApp(FirebaseUser user) async {
+  _loginToApp(User user) async {
     try {
-      UserModel appUser = await LoginEndPoints().loginToApp();
       this._saveToStore(appUser);
     } catch (e) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
