@@ -46,7 +46,8 @@ class LoginScreen extends StatelessWidget {
 
   _loginToApp(User user) async {
     try {
-      this._saveToStore(appUser);
+      // this._saveToStore(user);
+      //  TODO: Save firebase user to database here
     } catch (e) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
           content: Text(LoginLocale.failure),
