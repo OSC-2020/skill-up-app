@@ -4,7 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:js_skill_up/locale/en/screens/login.dart';
 import 'package:js_skill_up/main.dart';
 import 'package:js_skill_up/routes.dart';
-import 'package:js_skill_up/screens/widgets/phone-input.dart';
+import 'package:js_skill_up/screens/login/widgets/phone-input.dart';
 import 'package:js_skill_up/services/db/users/users.dart';
 import 'package:js_skill_up/services/firebase/login_utils.dart';
 import 'package:js_skill_up/services/redux/middleware/login_state_middleware.dart';

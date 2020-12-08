@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:js_skill_up/routes.dart';
-import 'package:js_skill_up/screens/homepage.dart';
+import 'package:js_skill_up/screens/homepage/homepage.dart';
 import 'package:js_skill_up/services/redux/middleware/login_state_middleware.dart';
 import 'package:js_skill_up/services/redux/models/app_state.dart';
 import 'package:js_skill_up/services/redux/reducers/app_reducers.dart';

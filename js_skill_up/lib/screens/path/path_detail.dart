@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:js_skill_up/screens/widgets/path/path_footer.dart';
-import 'package:js_skill_up/screens/widgets/path/path_header.dart';
-import 'package:js_skill_up/screens/widgets/path/path_quiz.dart';
-import 'package:js_skill_up/screens/widgets/path/path_theory.dart';
+import 'package:js_skill_up/screens/path/widgets/path_footer.dart';
+import 'package:js_skill_up/screens/path/widgets/path_header.dart';
+import 'package:js_skill_up/screens/path/widgets/path_quiz.dart';
+import 'package:js_skill_up/screens/path/widgets/path_theory.dart';
 import 'package:js_skill_up/services/redux/models/app_state.dart';
 import 'package:js_skill_up/services/redux/models/journeys/paths/base/path_base.dart';
 import 'package:js_skill_up/services/redux/models/journeys/paths/base/path_quiz.dart';
