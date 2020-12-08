@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:js_skill_up/screens/homepage.dart';
-import 'package:js_skill_up/screens/login.dart';
+import 'package:js_skill_up/screens/homepage/homepage.dart';
+import 'package:js_skill_up/screens/login/login.dart';
 
 class AppRoutes {
   static const String login = '/login';
