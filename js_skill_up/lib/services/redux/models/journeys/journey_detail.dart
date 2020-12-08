@@ -1,4 +1,4 @@
-import 'package:js_skill_up/redux/models/journeys/paths/path_detail.dart';
+import 'package:js_skill_up/services/redux/models/journeys/paths/path_detail.dart';
 
 class JourneyDetailModel {
   final String id;

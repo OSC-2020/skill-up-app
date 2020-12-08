@@ -1,6 +1,6 @@
-import 'package:js_skill_up/redux/models/journeys/paths/base/path_base.dart';
-import 'package:js_skill_up/redux/models/journeys/paths/base/path_content.dart';
-import 'package:js_skill_up/redux/models/journeys/paths/base/path_quiz.dart';
+import 'base/path_base.dart';
+import 'base/path_content.dart';
+import 'base/path_quiz.dart';
 
 class PathDetailModel {
   final String id;

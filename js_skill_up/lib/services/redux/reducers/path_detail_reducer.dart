@@ -1,5 +1,5 @@
-import 'package:js_skill_up/redux/models/journeys/paths/base/path_quiz.dart';
-import 'package:js_skill_up/redux/models/journeys/paths/path_detail.dart';
+import 'package:js_skill_up/services/redux/models/journeys/paths/base/path_quiz.dart';
+import 'package:js_skill_up/services/redux/models/journeys/paths/path_detail.dart';
 
 pathDetailReducer(PathDetailModel path, dynamic action) {
   if (action is PathDetailNextPageAction) {

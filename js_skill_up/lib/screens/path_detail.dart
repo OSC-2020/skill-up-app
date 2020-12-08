@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:js_skill_up/redux/models/app_state.dart';
-import 'package:js_skill_up/redux/models/journeys/paths/base/path_base.dart';
-import 'package:js_skill_up/redux/models/journeys/paths/base/path_quiz.dart';
-import 'package:js_skill_up/redux/models/journeys/paths/path_detail.dart';
-import 'package:js_skill_up/redux/reducers/path_detail_reducer.dart';
+import 'package:js_skill_up/services/redux/models/app_state.dart';
+import 'package:js_skill_up/services/redux/models/journeys/paths/base/path_base.dart';
+import 'package:js_skill_up/services/redux/models/journeys/paths/base/path_quiz.dart';
+import 'package:js_skill_up/services/redux/models/journeys/paths/path_detail.dart';
+import 'package:js_skill_up/services/redux/reducers/path_detail_reducer.dart';
 import 'package:js_skill_up/widgets/path/path_footer.dart';
 import 'package:js_skill_up/widgets/path/path_header.dart';
 import 'package:js_skill_up/widgets/path/path_quiz.dart';

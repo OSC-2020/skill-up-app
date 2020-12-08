@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:js_skill_up/redux/models/app_state.dart';
-import 'package:js_skill_up/redux/reducers/path_detail_reducer.dart';
+import 'package:js_skill_up/services/redux/models/app_state.dart';
+import 'package:js_skill_up/services/redux/reducers/path_detail_reducer.dart';
 import 'package:redux/redux.dart';
 
 class PathFooterWidget extends StatelessWidget {

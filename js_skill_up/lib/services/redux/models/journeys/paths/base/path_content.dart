@@ -1,4 +1,4 @@
-import 'package:js_skill_up/redux/models/journeys/paths/base/path_base.dart';
+import 'package:js_skill_up/services/redux/models/journeys/paths/base/path_base.dart';
 
 class PathTheoryModel {
   final List<ContentDetailModel> content;

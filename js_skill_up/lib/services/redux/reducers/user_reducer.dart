@@ -1,4 +1,4 @@
-import 'package:js_skill_up/redux/models/user_model.dart';
+import 'package:js_skill_up/services/redux/models/user_model.dart';
 
 getUserReducer(UserModel user, dynamic action) {
   if (action is SaveUserAction) {

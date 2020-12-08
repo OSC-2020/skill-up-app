@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:js_skill_up/redux/models/app_state.dart';
-import 'package:js_skill_up/redux/models/journeys/paths/base/path_quiz.dart';
-import 'package:js_skill_up/redux/reducers/path_detail_reducer.dart';
+import 'package:js_skill_up/services/redux/models/app_state.dart';
+import 'package:js_skill_up/services/redux/models/journeys/paths/base/path_quiz.dart';
+import 'package:js_skill_up/services/redux/reducers/path_detail_reducer.dart';
 import 'package:js_skill_up/widgets/path/path_content.dart';
 
 class PathQuizWidget extends StatelessWidget {

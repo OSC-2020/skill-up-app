@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:js_skill_up/redux/models/journeys/paths/base/path_base.dart';
+import 'package:js_skill_up/services/redux/models/journeys/paths/base/path_base.dart';
 
 class AllowedWidgets {
   static const int SIMPLE_TEXT = 1;

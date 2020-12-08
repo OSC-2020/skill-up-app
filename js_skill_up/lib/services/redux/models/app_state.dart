@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
-import 'package:js_skill_up/redux/models/journeys/paths/base/path_base.dart';
-import 'package:js_skill_up/redux/models/journeys/paths/base/path_content.dart';
-import 'package:js_skill_up/redux/models/journeys/paths/base/path_quiz.dart';
-import 'package:js_skill_up/redux/models/journeys/paths/path_detail.dart';
-import 'package:js_skill_up/redux/models/user_model.dart';
+import 'package:js_skill_up/services/redux/models/user_model.dart';
+
+import 'journeys/paths/base/path_base.dart';
+import 'journeys/paths/base/path_content.dart';
+import 'journeys/paths/base/path_quiz.dart';
+import 'journeys/paths/path_detail.dart';
 
 @immutable
 class AppState {

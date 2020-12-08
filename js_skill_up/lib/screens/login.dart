@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:js_skill_up/locale/en/screens/login.dart';
 import 'package:js_skill_up/main.dart';
-import 'package:js_skill_up/redux/middleware/login_state_middleware.dart';
-import 'package:js_skill_up/redux/models/app_state.dart';
-import 'package:js_skill_up/redux/models/user_model.dart';
 import 'package:js_skill_up/routes.dart';
+import 'package:js_skill_up/services/db/users/users.dart';
+import 'package:js_skill_up/services/redux/middleware/login_state_middleware.dart';
+import 'package:js_skill_up/services/redux/models/app_state.dart';
+import 'package:js_skill_up/services/redux/models/user_model.dart';
 import 'package:js_skill_up/utils/firebase/login_utils.dart';
 import 'package:js_skill_up/widgets/phone-input.dart';
 import 'package:redux/redux.dart';
@@ -46,8 +47,15 @@ class LoginScreen extends StatelessWidget {
 
   _loginToApp(User user) async {
     try {
-      // this._saveToStore(user);
-      //  TODO: Save firebase user to database here
+      UserModel userToSave = UserModel(
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+          phoneNumber: user.phoneNumber,
+          photoURL: user.photoURL);
+
+      UsersDB.saveLoginInfo(userToSave)
+          .then((value) => this._saveToStore(userToSave));
     } catch (e) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
           content: Text(LoginLocale.failure),
@@ -65,8 +73,6 @@ class LoginScreen extends StatelessWidget {
       //TODO: DELETE this code after server side code is done
       // Allowing dummy Login
       print('FAILED! as server is not there so dummy login');
-      _saveToStore(UserModel(
-          username: "rahulbarwal", name: "Rahul Barwal", token: "token"));
     }
   }
 

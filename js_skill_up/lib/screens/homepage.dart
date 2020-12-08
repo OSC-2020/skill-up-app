@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:js_skill_up/redux/models/app_state.dart';
-import 'package:js_skill_up/redux/models/user_model.dart';
+import 'package:js_skill_up/services/redux/models/app_state.dart';
+import 'package:js_skill_up/services/redux/models/user_model.dart';
 
 class HomeScreen extends StatefulWidget {
   final void Function() checkUserLogin;
@@ -16,7 +16,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-
     if (widget.checkUserLogin != null) {
       //TODO: Move this to splash screen.
       widget.checkUserLogin();
@@ -31,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return Container(
           color: Theme.of(context).accentColor,
           child: Center(
-            child: Text(user?.name ?? "You are not logged in"),
+            child: Text(user?.displayName ?? "You are not logged in"),
           ),
         );
       },
