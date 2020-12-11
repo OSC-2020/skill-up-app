@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:js_skill_up/global_keys.dart';
 import 'package:js_skill_up/locale/en/screens/login.dart';
-import 'package:js_skill_up/main.dart';
 import 'package:js_skill_up/routes.dart';
 import 'package:js_skill_up/screens/login/widgets/phone-input.dart';
 import 'package:js_skill_up/services/db/users/users.dart';

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:js_skill_up/global_keys.dart';
 import 'package:js_skill_up/routes.dart';
 import 'package:js_skill_up/screens/homepage/homepage.dart';
 import 'package:js_skill_up/services/redux/middleware/login_state_middleware.dart';
@@ -9,10 +10,6 @@ import 'package:js_skill_up/services/redux/models/app_state.dart';
 import 'package:js_skill_up/services/redux/reducers/app_reducers.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
-
-class GlobalKeys {
-  static final navKey = new GlobalKey<NavigatorState>();
-}
 
 bool USE_FIRESTORE_EMULATOR = false;
 

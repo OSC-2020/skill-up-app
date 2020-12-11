@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:js_skill_up/constants/ui_widget_types.dart';
+import 'package:js_skill_up/screens/homepage/widgets/grid_with_title.dart';
 import 'package:js_skill_up/services/redux/models/app_state.dart';
 import 'package:js_skill_up/services/redux/models/user_model.dart';
 
@@ -27,13 +29,28 @@ class _HomeScreenState extends State<HomeScreen> {
     return StoreConnector<AppState, UserModel>(
       converter: (store) => store.state.user,
       builder: (context, UserModel user) {
-        return Container(
-          color: Theme.of(context).accentColor,
-          child: Center(
-            child: Text(user?.displayName ?? "You are not logged in"),
+        return SafeArea(
+          child: Scaffold(
+            body: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  generateHomePageFeed(),
+                ],
+              ),
+            ),
           ),
         );
       },
     );
+  }
+
+  generateHomePageFeed() {
+    List data = [
+      {'type': CommonWidgetTypes.JOURNEY_INFO_TILE},
+      {'type': CommonWidgetTypes.JOURNEY_INFO_TILE},
+      {'type': CommonWidgetTypes.JOURNEY_INFO_TILE},
+      {'type': CommonWidgetTypes.JOURNEY_INFO_TILE},
+    ];
+    return new SkillUpGridWithTitle(items: data);
   }
 }
