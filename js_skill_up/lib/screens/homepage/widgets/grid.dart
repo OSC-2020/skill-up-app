@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:js_skill_up/constants/ui_widget_types.dart';
 import 'package:js_skill_up/screens/homepage/widgets/journey_info_tile.dart';
 
 class SkillUpGrid extends StatelessWidget {
   final int colCount;
-  final List items;
+  final List<UIWidgetTypeModel> items;
 
   SkillUpGrid({this.colCount, this.items});
 
@@ -32,12 +33,17 @@ class SkillUpGrid extends StatelessWidget {
         children: widgetBuilder());
   }
 
-  List<JourneyInfoTile> widgetBuilder() {
-    return this
-        .items
-        .map(
-          (e) => JourneyInfoTile(),
-        )
-        .toList(growable: false);
+  List<dynamic> widgetBuilder() {
+    return this.items.map(
+      (UIWidgetTypeModel e) {
+        if (e.type == UIWidgetTypes.JOURNEY_INFO_TILE &&
+            (e is JourneyInfoTileModel)) {
+          return JourneyInfoTile(
+            tileData: e,
+          );
+        }
+        return null;
+      },
+    ).toList(growable: false);
   }
 }

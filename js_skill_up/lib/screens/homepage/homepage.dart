@@ -45,11 +45,34 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   generateHomePageFeed() {
-    List data = [
-      {'type': CommonWidgetTypes.JOURNEY_INFO_TILE},
-      {'type': CommonWidgetTypes.JOURNEY_INFO_TILE},
-      {'type': CommonWidgetTypes.JOURNEY_INFO_TILE},
-      {'type': CommonWidgetTypes.JOURNEY_INFO_TILE},
+    List<UIWidgetTypeModel> data = [
+      JourneyInfoTileModel(
+        type: UIWidgetTypes.JOURNEY_INFO_TILE,
+        data: JourneyInfoModel(
+          title: "This is a dummy title 1",
+        ),
+      ),
+      JourneyInfoTileModel(
+        type: UIWidgetTypes.JOURNEY_INFO_TILE,
+        data: JourneyInfoModel(
+          title: "This is a dummy title 1",
+          progress: 0.8,
+        ),
+      ),
+      JourneyInfoTileModel(
+        type: UIWidgetTypes.JOURNEY_INFO_TILE,
+        data: JourneyInfoModel(
+          title: "This is a dummy title 1",
+          progress: 0.5,
+        ),
+      ),
+      JourneyInfoTileModel(
+        type: UIWidgetTypes.JOURNEY_INFO_TILE,
+        data: JourneyInfoModel(
+          title: "This is a dummy title 1",
+          progress: 0.4,
+        ),
+      ),
     ];
     return new SkillUpGridWithTitle(items: data);
   }
