@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:js_skill_up/constants/ui_standards.dart';
 import 'package:js_skill_up/constants/ui_widget_types.dart';
 import 'package:js_skill_up/screens/homepage/widgets/journey_info_tile.dart';
 
@@ -30,10 +31,10 @@ class SkillUpGrid extends StatelessWidget {
         crossAxisSpacing: 20.0,
         padding: EdgeInsets.all(16.0),
         shrinkWrap: true,
-        children: widgetBuilder());
+        children: generateWidgets());
   }
 
-  List<dynamic> widgetBuilder() {
+  List<dynamic> generateWidgets() {
     return this.items.map(
       (UIWidgetTypeModel e) {
         if (e.type == UIWidgetTypes.JOURNEY_INFO_TILE &&

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:js_skill_up/constants/ui_standards.dart';
 import 'package:js_skill_up/constants/ui_widget_types.dart';
 import 'package:js_skill_up/screens/homepage/widgets/grid_with_title.dart';
+import 'package:js_skill_up/screens/homepage/widgets/horizontal_list_with_tile.dart';
 import 'package:js_skill_up/services/redux/models/app_state.dart';
 import 'package:js_skill_up/services/redux/models/user_model.dart';
 
@@ -33,9 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Scaffold(
             body: SingleChildScrollView(
               child: Column(
-                children: <Widget>[
-                  generateHomePageFeed(),
-                ],
+                children: generateHomePageFeed(),
               ),
             ),
           ),
@@ -62,18 +62,26 @@ class _HomeScreenState extends State<HomeScreen> {
       JourneyInfoTileModel(
         type: UIWidgetTypes.JOURNEY_INFO_TILE,
         data: JourneyInfoModel(
-          title: "This is a dummy title 1",
+          title: "This is a dummy title 2",
           progress: 0.5,
         ),
       ),
       JourneyInfoTileModel(
         type: UIWidgetTypes.JOURNEY_INFO_TILE,
         data: JourneyInfoModel(
-          title: "This is a dummy title 1",
+          title: "Kuch to alag likh yaar",
           progress: 0.4,
         ),
       ),
     ];
-    return new SkillUpGridWithTitle(items: data);
+    String title1 = "Interview prep";
+    String title2 = "Getting started";
+    return [
+      new SkillUpGridWithTitle(title: title2, items: data),
+      new SizedBox(
+        height: UIStandards.STANDARD_GAP,
+      ),
+      new SkillUpHorizontalListWithTitle(title: title1, items: data),
+    ];
   }
 }

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:js_skill_up/constants/ui_standards.dart';
 import 'package:js_skill_up/constants/ui_widget_types.dart';
 import 'package:js_skill_up/screens/homepage/widgets/grid.dart';
 
 class SkillUpGridWithTitle extends StatelessWidget {
+  final String title;
   final int colCount;
   final List<UIWidgetTypeModel> items;
 
-  SkillUpGridWithTitle({this.colCount = 2, this.items}) {
+  SkillUpGridWithTitle({@required this.title, this.colCount = 2, this.items}) {
     assert(this.colCount == 2 || this.colCount == 3);
     assert(this.items.length > 0);
   }
@@ -20,7 +22,7 @@ class SkillUpGridWithTitle extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-            border: Border.all(width: 2.0, color: Colors.blueGrey),
+            border: Border.all(width: 1.0, color: Colors.grey.withOpacity(0.8)),
             borderRadius: BorderRadius.circular(20.0),
           ),
           padding: EdgeInsets.symmetric(
@@ -28,12 +30,12 @@ class SkillUpGridWithTitle extends StatelessWidget {
             vertical: 4.0,
           ),
           child: Text(
-            'I am heading',
+            this.title,
             style: Theme.of(context).textTheme.headline5,
           ),
         ),
         SizedBox(
-          height: 16.0,
+          height: UIStandards.STANDARD_GAP,
         ),
         this.colCount == 2
             ? SkillUpGrid.gridWith2cols(items: this.items)
