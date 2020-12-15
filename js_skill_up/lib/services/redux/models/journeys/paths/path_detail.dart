@@ -20,7 +20,7 @@ class PathDetailModel {
     this.contents,
     this.activeIndex,
   }) {
-    if (this.lastContentPagePos == null) {
+    if (this.lastContentPagePos == null && this.contents != null) {
       this.lastContentPagePos = contents.length;
     }
   }

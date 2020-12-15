@@ -5,7 +5,6 @@ class JourneyDetailModel {
   final String title;
   final int totalPaths;
   final int pathsCompleted;
-  final double percentComplete;
   final List<PathDetailModel> paths;
 
   JourneyDetailModel({
@@ -13,7 +12,6 @@ class JourneyDetailModel {
     this.title,
     this.totalPaths,
     this.pathsCompleted,
-    this.percentComplete,
     this.paths,
   });
 }
