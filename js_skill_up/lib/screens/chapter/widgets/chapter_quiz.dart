@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:js_skill_up/screens/path/widgets/path_content.dart';
+import 'package:js_skill_up/screens/chapter/widgets/chapter_content.dart';
 import 'package:js_skill_up/services/redux/models/app_state.dart';
-import 'package:js_skill_up/services/redux/models/journeys/paths/base/path_quiz.dart';
-import 'package:js_skill_up/services/redux/reducers/path_detail_reducer.dart';
+import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_quiz.dart';
+import 'package:js_skill_up/services/redux/reducers/books_detail_reducer.dart';
 
-class PathQuizWidget extends StatelessWidget {
-  final PathQuizModel quizPage;
+class ChapterQuizWidget extends StatelessWidget {
+  final ChapterQuizModel quizPage;
 
-  PathQuizWidget({
+  ChapterQuizWidget({
     @required this.quizPage,
   });
 
@@ -27,7 +27,7 @@ class PathQuizWidget extends StatelessWidget {
   }
 
   _getBody() {
-    return PathContentWidget(
+    return ChapterContentWidget(
       contents: quizPage.content,
     );
   }
@@ -35,12 +35,12 @@ class PathQuizWidget extends StatelessWidget {
   _getOptions() {
     final List<Widget> widgets = List<Widget>();
     for (int idx = 0; idx < quizPage.options.length; idx++) {
-      widgets.add(PathQuizOptionWidget(
+      widgets.add(ChapterQuizOptionWidget(
         optionText: quizPage.options[idx].content,
         optionIndex: idx,
         isSelected: idx == quizPage.userSelectionOptionIndex,
         showCorrectness:
-            quizPage.pageState == PathQuizPageState.SHOW_CORRECTNESS,
+            quizPage.pageState == ChapterQuizPageState.SHOW_CORRECTNESS,
         isCorrect:
             quizPage.userSelectionOptionIndex == quizPage.correctOptionIndex,
       ));
@@ -53,14 +53,14 @@ class PathQuizWidget extends StatelessWidget {
   }
 }
 
-class PathQuizOptionWidget extends StatelessWidget {
+class ChapterQuizOptionWidget extends StatelessWidget {
   final String optionText;
   final int optionIndex;
   final bool isSelected;
   final bool isCorrect;
   final bool showCorrectness;
 
-  PathQuizOptionWidget(
+  ChapterQuizOptionWidget(
       {@required this.optionText,
       @required this.optionIndex,
       this.isCorrect,
@@ -70,8 +70,8 @@ class PathQuizOptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, Function>(
-      converter: (store) => () => store
-          .dispatch(PathDetailQuizSelectOptionAction(optionIndex: optionIndex)),
+      converter: (store) => () => store.dispatch(
+          ChapterDetailQuizSelectOptionAction(optionIndex: optionIndex)),
       builder: (BuildContext context, Function selectOptionCallback) {
         return GestureDetector(
           onTap: () {

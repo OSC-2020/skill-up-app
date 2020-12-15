@@ -1,37 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:js_skill_up/screens/path/widgets/path_footer.dart';
-import 'package:js_skill_up/screens/path/widgets/path_header.dart';
-import 'package:js_skill_up/screens/path/widgets/path_quiz.dart';
-import 'package:js_skill_up/screens/path/widgets/path_theory.dart';
+import 'package:js_skill_up/screens/chapter/widgets/chapter_footer.dart';
+import 'package:js_skill_up/screens/chapter/widgets/chapter_header.dart';
+import 'package:js_skill_up/screens/chapter/widgets/chapter_quiz.dart';
+import 'package:js_skill_up/screens/chapter/widgets/chapter_theory.dart';
 import 'package:js_skill_up/services/redux/models/app_state.dart';
-import 'package:js_skill_up/services/redux/models/journeys/paths/base/path_base.dart';
-import 'package:js_skill_up/services/redux/models/journeys/paths/base/path_quiz.dart';
-import 'package:js_skill_up/services/redux/models/journeys/paths/path_detail.dart';
-import 'package:js_skill_up/services/redux/reducers/path_detail_reducer.dart';
+import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_base.dart';
+import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_quiz.dart';
+import 'package:js_skill_up/services/redux/models/books/chapters/chapter_detail.dart';
+import 'package:js_skill_up/services/redux/reducers/books_detail_reducer.dart';
 import 'package:redux/redux.dart';
 
-class PathDetailScreen extends StatelessWidget {
+class ChapterDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       body: SafeArea(
-        child: StoreConnector<AppState, PathDetailModel>(
-          converter: (store) => store.state.currentPath,
-          builder: (BuildContext context, PathDetailModel detail) {
+        child: StoreConnector<AppState, ChapterDetailModel>(
+          converter: (store) => store.state.currentChapter,
+          builder: (BuildContext context, ChapterDetailModel detail) {
             final int activeIndex = (detail.activeIndex ?? 0);
             final double progressVal =
                 (activeIndex + 1) / detail.contents.length;
 
             dynamic currentPage = detail.contents[activeIndex];
-            final bool isQuiz = currentPage.pageType == PathPageType.QUIZ;
+            final bool isQuiz = currentPage.pageType == ChapterPageType.QUIZ;
             bool isOptionSelected, showCorrectness;
-            if (currentPage is PathQuizModel) {
+            if (currentPage is ChapterQuizModel) {
               isOptionSelected =
-                  currentPage.pageState != PathQuizPageState.INITIAL;
-              showCorrectness =
-                  currentPage.pageState == PathQuizPageState.SHOW_CORRECTNESS;
+                  currentPage.pageState != ChapterQuizPageState.INITIAL;
+              showCorrectness = currentPage.pageState ==
+                  ChapterQuizPageState.SHOW_CORRECTNESS;
             }
             final bool isFirstPage = (detail.activeIndex ?? 0) == 0;
             final bool isLastPage =
@@ -39,16 +39,16 @@ class PathDetailScreen extends StatelessWidget {
 
             return Column(
               children: <Widget>[
-                PathHeaderWidget(
+                ChapterHeaderWidget(
                   progressValue: progressVal,
                 ),
                 Expanded(
                   child: SingleChildScrollView(
                     child: isQuiz
-                        ? PathQuizWidget(
+                        ? ChapterQuizWidget(
                             quizPage: currentPage,
                           )
-                        : PathTheoryWidget(
+                        : ChapterTheoryWidget(
                             currentPage: currentPage,
                           ),
                   ),
@@ -58,7 +58,7 @@ class PathDetailScreen extends StatelessWidget {
                         isLastPage, showCorrectness, activeIndex),
                     builder:
                         (BuildContext context, Function nextClickCallback) {
-                      return PathFooterWidget(
+                      return ChapterFooterWidget(
                         explanationString: currentPage.footerHelpText,
                         hidePrev: isFirstPage || isQuiz,
                         isLastPage: isLastPage,
@@ -80,18 +80,18 @@ class PathDetailScreen extends StatelessWidget {
       if (isQuiz) {
         if (isCorrectnessShownToUser) {
           if (isLastPage) {
-            store.dispatch(PathDetailCompletePathAction());
+            store.dispatch(ChapterDetailCompleteChapterAction());
           } else {
-            store.dispatch(PathDetailNextPageAction());
+            store.dispatch(ChapterDetailNextPageAction());
           }
         } else {
-          store.dispatch(PathDetailQuizShowCorrectnessAction());
+          store.dispatch(ChapterDetailQuizShowCorrectnessAction());
         }
       } else {
         if (isLastPage) {
-          store.dispatch(PathDetailNextPageAction());
+          store.dispatch(ChapterDetailNextPageAction());
         } else {
-          store.dispatch(PathDetailNextPageAction());
+          store.dispatch(ChapterDetailNextPageAction());
         }
       }
     };

@@ -1,24 +1,24 @@
 import 'package:flutter/foundation.dart';
 
 class UIWidgetTypes {
-  static final int JOURNEY_INFO_TILE = 1;
+  static final int BOOK_INFO_TILE = 1;
 }
 
 abstract class UIWidgetTypeModel {
   int type;
 }
 
-class JourneyInfoModel {
+class BookInfoModel {
   final String title;
   final String iconUrl;
   final double progress;
 
-  JourneyInfoModel({@required this.title, this.iconUrl, this.progress});
+  BookInfoModel({@required this.title, this.iconUrl, this.progress});
 }
 
-class JourneyInfoTileModel extends UIWidgetTypeModel {
+class BookInfoTileModel extends UIWidgetTypeModel {
   final int type;
-  final JourneyInfoModel data;
+  final BookInfoModel data;
 
-  JourneyInfoTileModel({@required this.type, this.data});
+  BookInfoTileModel({@required this.type, this.data});
 }

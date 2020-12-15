@@ -1,42 +1,42 @@
-import 'package:js_skill_up/services/redux/models/journeys/paths/base/path_base.dart';
-import 'package:js_skill_up/services/redux/models/journeys/paths/base/path_content.dart';
+import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_base.dart';
+import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_content.dart';
 
-enum PathQuizPageState {
+enum ChapterQuizPageState {
   INITIAL,
   SELECTION_DONE,
   SHOW_CORRECTNESS,
   SUBMITTED,
 }
 
-class PathQuizModel extends PathTheoryModel {
+class ChapterQuizModel extends ChapterTheoryModel {
   final int numberOptions;
   final List<ContentDetailModel> options;
   final int correctOptionIndex;
   final bool isCorrect;
-  final PathQuizPageState pageState;
+  final ChapterQuizPageState pageState;
   final int userSelectionOptionIndex;
 
-  PathQuizModel({
+  ChapterQuizModel({
     this.numberOptions,
     this.options,
     this.correctOptionIndex,
     this.isCorrect,
-    this.pageState = PathQuizPageState.INITIAL,
+    this.pageState = ChapterQuizPageState.INITIAL,
     this.userSelectionOptionIndex,
     List<ContentDetailModel> content,
     String footerHelpText,
   }) : super(
           content: content,
-          pageType: PathPageType.QUIZ,
+          pageType: ChapterPageType.QUIZ,
           footerHelpText: footerHelpText,
         );
 
-  PathQuizModel copyWith({
+  ChapterQuizModel copyWith({
     bool isCorrect,
     int selectedOptionIndex,
-    PathQuizPageState newQuizPageState,
+    ChapterQuizPageState newQuizPageState,
   }) {
-    return PathQuizModel(
+    return ChapterQuizModel(
       numberOptions: this.numberOptions,
       options: this.options,
       correctOptionIndex: this.correctOptionIndex,

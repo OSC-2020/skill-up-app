@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:js_skill_up/constants/ui_standards.dart';
 import 'package:js_skill_up/constants/ui_widget_types.dart';
-import 'package:js_skill_up/screens/homepage/widgets/journey_info_tile.dart';
+import 'package:js_skill_up/screens/homepage/widgets/book_info_tile.dart';
 
 class SkillUpHorizontalList extends StatelessWidget {
   final List<UIWidgetTypeModel> items;
@@ -11,7 +11,7 @@ class SkillUpHorizontalList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: UIStandards.JOURNEY_CARD_HEIGHT,
+      height: UIStandards.BOOK_CARD_HEIGHT,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -23,9 +23,9 @@ class SkillUpHorizontalList extends StatelessWidget {
           );
         },
         itemBuilder: (BuildContext context, int index) {
-          if (this.items[index].type == UIWidgetTypes.JOURNEY_INFO_TILE &&
-              (this.items[index] is JourneyInfoTileModel)) {
-            return JourneyInfoTile(
+          if (this.items[index].type == UIWidgetTypes.BOOK_INFO_TILE &&
+              (this.items[index] is BookInfoTileModel)) {
+            return BookInfoTile(
               tileData: this.items[index],
             );
           }
@@ -38,9 +38,9 @@ class SkillUpHorizontalList extends StatelessWidget {
   generateWidgets() {
     return this.items.map(
       (UIWidgetTypeModel e) {
-        if (e.type == UIWidgetTypes.JOURNEY_INFO_TILE &&
-            (e is JourneyInfoTileModel)) {
-          return JourneyInfoTile(
+        if (e.type == UIWidgetTypes.BOOK_INFO_TILE &&
+            (e is BookInfoTileModel)) {
+          return BookInfoTile(
             tileData: e,
           );
         }

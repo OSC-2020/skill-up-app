@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:js_skill_up/constants/ui_standards.dart';
 import 'package:js_skill_up/constants/ui_widget_types.dart';
-import 'package:js_skill_up/screens/homepage/widgets/journey_info_tile.dart';
+import 'package:js_skill_up/screens/homepage/widgets/book_info_tile.dart';
 
 class SkillUpGrid extends StatelessWidget {
   final int colCount;
@@ -37,9 +36,9 @@ class SkillUpGrid extends StatelessWidget {
   List<dynamic> generateWidgets() {
     return this.items.map(
       (UIWidgetTypeModel e) {
-        if (e.type == UIWidgetTypes.JOURNEY_INFO_TILE &&
-            (e is JourneyInfoTileModel)) {
-          return JourneyInfoTile(
+        if (e.type == UIWidgetTypes.BOOK_INFO_TILE &&
+            (e is BookInfoTileModel)) {
+          return BookInfoTile(
             tileData: e,
           );
         }

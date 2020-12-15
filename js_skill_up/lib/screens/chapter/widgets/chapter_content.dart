@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:js_skill_up/services/redux/models/journeys/paths/base/path_base.dart';
+import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_base.dart';
 
 class AllowedWidgets {
   static const int SIMPLE_TEXT = 1;
   static const int CODE_BLOCK = 2;
 }
 
-class PathContentWidget extends StatelessWidget {
+class ChapterContentWidget extends StatelessWidget {
   final List<ContentDetailModel> contents;
 
-  PathContentWidget({this.contents});
+  ChapterContentWidget({this.contents});
 
   @override
   Widget build(BuildContext context) {

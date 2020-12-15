@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:js_skill_up/services/redux/models/app_state.dart';
-import 'package:js_skill_up/services/redux/reducers/path_detail_reducer.dart';
+import 'package:js_skill_up/services/redux/reducers/books_detail_reducer.dart';
 import 'package:redux/redux.dart';
 
-class PathHeaderWidget extends StatelessWidget {
+class ChapterHeaderWidget extends StatelessWidget {
   final double progressValue;
 
-  PathHeaderWidget({this.progressValue});
+  ChapterHeaderWidget({this.progressValue});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class PathHeaderWidget extends StatelessWidget {
                     icon: Icon(Icons.close),
                     onPressed: () {
                       store.dispatch(
-                        PathDetailStartPathAction(),
+                        ChapterDetailStartChapterAction(),
                       );
                     },
                   );

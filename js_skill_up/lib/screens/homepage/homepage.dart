@@ -46,29 +46,29 @@ class _HomeScreenState extends State<HomeScreen> {
 
   generateHomePageFeed() {
     List<UIWidgetTypeModel> data = [
-      JourneyInfoTileModel(
-        type: UIWidgetTypes.JOURNEY_INFO_TILE,
-        data: JourneyInfoModel(
+      BookInfoTileModel(
+        type: UIWidgetTypes.BOOK_INFO_TILE,
+        data: BookInfoModel(
           title: "This is a dummy title 1",
         ),
       ),
-      JourneyInfoTileModel(
-        type: UIWidgetTypes.JOURNEY_INFO_TILE,
-        data: JourneyInfoModel(
+      BookInfoTileModel(
+        type: UIWidgetTypes.BOOK_INFO_TILE,
+        data: BookInfoModel(
           title: "This is a dummy title 1",
           progress: 0.8,
         ),
       ),
-      JourneyInfoTileModel(
-        type: UIWidgetTypes.JOURNEY_INFO_TILE,
-        data: JourneyInfoModel(
+      BookInfoTileModel(
+        type: UIWidgetTypes.BOOK_INFO_TILE,
+        data: BookInfoModel(
           title: "This is a dummy title 2",
           progress: 0.5,
         ),
       ),
-      JourneyInfoTileModel(
-        type: UIWidgetTypes.JOURNEY_INFO_TILE,
-        data: JourneyInfoModel(
+      BookInfoTileModel(
+        type: UIWidgetTypes.BOOK_INFO_TILE,
+        data: BookInfoModel(
           title: "Kuch to alag likh yaar",
           progress: 0.4,
         ),

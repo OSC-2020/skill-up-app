@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:js_skill_up/constants/ui_standards.dart';
 import 'package:js_skill_up/constants/ui_widget_types.dart';
 
-class JourneyInfoTile extends StatelessWidget {
-  JourneyInfoTileModel tileData;
+class BookInfoTile extends StatelessWidget {
+  BookInfoTileModel tileData;
 
-  JourneyInfoTile({this.tileData});
+  BookInfoTile({this.tileData});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: UIStandards.JOURNEY_CARD_HEIGHT,
-      width: UIStandards.JOURNEY_CARD_HEIGHT,
+      height: UIStandards.BOOK_CARD_HEIGHT,
+      width: UIStandards.BOOK_CARD_HEIGHT,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
         color: Colors.grey.shade200.withOpacity(0.8),

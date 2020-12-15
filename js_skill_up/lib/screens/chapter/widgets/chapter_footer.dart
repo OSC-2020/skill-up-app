@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:js_skill_up/services/redux/models/app_state.dart';
-import 'package:js_skill_up/services/redux/reducers/path_detail_reducer.dart';
+import 'package:js_skill_up/services/redux/reducers/books_detail_reducer.dart';
 import 'package:redux/redux.dart';
 
-class PathFooterWidget extends StatelessWidget {
+class ChapterFooterWidget extends StatelessWidget {
   static const String PAGE_TYPE_CONTENT = 'content';
   static const String PAGE_TYPE_QUIZ_CORRECT = 'correct';
   static const String PAGE_TYPE_Quiz_WRONG = 'wrong';
@@ -15,7 +15,7 @@ class PathFooterWidget extends StatelessWidget {
   final bool isNextDisabled;
   final void Function() onNextClick;
 
-  PathFooterWidget({
+  ChapterFooterWidget({
     this.explanationString = "",
     this.hidePrev,
     @required this.isLastPage,
@@ -54,7 +54,7 @@ class PathFooterWidget extends StatelessWidget {
                           color: Theme.of(context).primaryColor,
                           icon: Icon(Icons.arrow_back_ios),
                           onPressed: () {
-                            store.dispatch(PathDetailPreviousPageAction());
+                            store.dispatch(ChapterDetailPreviousPageAction());
                           },
                         ),
                   Expanded(

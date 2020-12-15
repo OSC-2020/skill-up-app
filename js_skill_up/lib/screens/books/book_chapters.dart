@@ -1,34 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:js_skill_up/constants/ui_standards.dart';
-import 'package:js_skill_up/services/redux/models/journeys/journey_detail.dart';
-import 'package:js_skill_up/services/redux/models/journeys/paths/path_detail.dart';
+import 'package:js_skill_up/services/redux/models/books/book_detail.dart';
+import 'package:js_skill_up/services/redux/models/books/chapters/chapter_detail.dart';
 
-class JourneyPathsScreen extends StatefulWidget {
-  JourneyPathsScreen();
+class BookChaptersScreen extends StatefulWidget {
+  BookChaptersScreen();
 
   @override
-  _JourneyPathsScreenState createState() => _JourneyPathsScreenState();
+  _BookChaptersScreenState createState() => _BookChaptersScreenState();
 }
 
-class _JourneyPathsScreenState extends State<JourneyPathsScreen> {
+class _BookChaptersScreenState extends State<BookChaptersScreen> {
   ScrollController scrollController;
 
-  final JourneyDetailModel journeyInfo = new JourneyDetailModel(
-    totalPaths: 12,
-    paths: [
-      PathDetailModel(title: 'Title 1'),
-      PathDetailModel(title: 'Title 2'),
-      PathDetailModel(title: 'Title 3'),
-      PathDetailModel(title: 'Title 4'),
-      PathDetailModel(title: 'Title 5'),
-      PathDetailModel(title: 'Title 6'),
-      PathDetailModel(title: 'Title 7'),
-      PathDetailModel(title: 'Title 8'),
-      PathDetailModel(title: 'Title 9'),
-      PathDetailModel(title: 'Title 10'),
-      PathDetailModel(title: 'Title 11'),
-      PathDetailModel(title: 'Title 12'),
+  final BookDetailModel bookInfo = new BookDetailModel(
+    totalChapters: 12,
+    chapters: [
+      ChapterDetailModel(title: 'Title 1'),
+      ChapterDetailModel(title: 'Title 2'),
+      ChapterDetailModel(title: 'Title 3'),
+      ChapterDetailModel(title: 'Title 4'),
+      ChapterDetailModel(title: 'Title 5'),
+      ChapterDetailModel(title: 'Title 6'),
+      ChapterDetailModel(title: 'Title 7'),
+      ChapterDetailModel(title: 'Title 8'),
+      ChapterDetailModel(title: 'Title 9'),
+      ChapterDetailModel(title: 'Title 10'),
+      ChapterDetailModel(title: 'Title 11'),
+      ChapterDetailModel(title: 'Title 12'),
     ].toList(growable: false),
   );
 
@@ -64,9 +64,9 @@ class _JourneyPathsScreenState extends State<JourneyPathsScreen> {
           shrinkWrap: true,
           reverse: true,
           controller: this.scrollController,
-          itemCount: this.journeyInfo.totalPaths,
+          itemCount: this.bookInfo.totalChapters,
           itemBuilder: (BuildContext context, int index) {
-            if (index == this.journeyInfo.totalPaths - 1) {
+            if (index == this.bookInfo.totalChapters - 1) {
               this.scrollToBottom();
             }
             return this.generateListItem(index);
@@ -85,7 +85,7 @@ class _JourneyPathsScreenState extends State<JourneyPathsScreen> {
       alignment: getDynamicAlignment(index),
       child: Card(
         child: ListTile(
-          title: Text(this.journeyInfo.paths[index].title),
+          title: Text(this.bookInfo.chapters[index].title),
         ),
       ),
     );

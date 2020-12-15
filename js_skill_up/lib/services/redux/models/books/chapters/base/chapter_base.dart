@@ -8,7 +8,7 @@ class ContentDetailModel {
   });
 }
 
-class PathPageType {
+class ChapterPageType {
   static const THEORY = 1;
   static const QUIZ = 2;
 }
