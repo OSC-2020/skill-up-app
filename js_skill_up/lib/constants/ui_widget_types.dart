@@ -1,24 +1,15 @@
-import 'package:flutter/foundation.dart';
+abstract class UIWidgetTypeModel {
+  final int uiType;
+
+  UIWidgetTypeModel({this.uiType});
+}
 
 class UIWidgetTypes {
-  static final int BOOK_INFO_TILE = 1;
-}
+  // Generic widgets
+  static final int GRID = 1;
+  static final int HORIZONTAL_LIST = 2;
+  static final int VERTICAL_LIST = 3;
 
-abstract class UIWidgetTypeModel {
-  int type;
-}
-
-class BookInfoModel {
-  final String title;
-  final String iconUrl;
-  final double progress;
-
-  BookInfoModel({@required this.title, this.iconUrl, this.progress});
-}
-
-class BookInfoTileModel extends UIWidgetTypeModel {
-  final int type;
-  final BookInfoModel data;
-
-  BookInfoTileModel({@required this.type, this.data});
+  // Book related widgets
+  static final int BOOK_INFO_TILE = 100;
 }

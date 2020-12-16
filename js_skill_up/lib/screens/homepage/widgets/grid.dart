@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:js_skill_up/constants/ui_widget_types.dart';
 import 'package:js_skill_up/screens/homepage/widgets/book_info_tile.dart';
+import 'package:js_skill_up/services/redux/models/books/book_groups.dart';
 
 class SkillUpGrid extends StatelessWidget {
   final int colCount;
@@ -24,6 +25,8 @@ class SkillUpGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('***I have got ${this.items}');
+
     return GridView.count(
         crossAxisCount: this.colCount,
         mainAxisSpacing: 20.0,
@@ -35,13 +38,14 @@ class SkillUpGrid extends StatelessWidget {
 
   List<dynamic> generateWidgets() {
     return this.items.map(
-      (UIWidgetTypeModel e) {
-        if (e.type == UIWidgetTypes.BOOK_INFO_TILE &&
-            (e is BookInfoTileModel)) {
+      (UIWidgetTypeModel book) {
+        if (book.uiType == UIWidgetTypes.BOOK_INFO_TILE &&
+            (book is BookInfoModel)) {
           return BookInfoTile(
-            tileData: e,
+            tileData: book,
           );
         }
+        print('Dev Error! No Widget Assigned');
         return null;
       },
     ).toList(growable: false);

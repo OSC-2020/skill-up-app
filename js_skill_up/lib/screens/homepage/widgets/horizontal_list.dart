@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:js_skill_up/constants/ui_standards.dart';
 import 'package:js_skill_up/constants/ui_widget_types.dart';
 import 'package:js_skill_up/screens/homepage/widgets/book_info_tile.dart';
+import 'package:js_skill_up/services/redux/models/books/book_groups.dart';
 
 class SkillUpHorizontalList extends StatelessWidget {
   final List<UIWidgetTypeModel> items;
@@ -23,8 +24,8 @@ class SkillUpHorizontalList extends StatelessWidget {
           );
         },
         itemBuilder: (BuildContext context, int index) {
-          if (this.items[index].type == UIWidgetTypes.BOOK_INFO_TILE &&
-              (this.items[index] is BookInfoTileModel)) {
+          if (this.items[index].uiType == UIWidgetTypes.BOOK_INFO_TILE &&
+              (this.items[index] is BookInfoModel)) {
             return BookInfoTile(
               tileData: this.items[index],
             );
@@ -38,12 +39,12 @@ class SkillUpHorizontalList extends StatelessWidget {
   generateWidgets() {
     return this.items.map(
       (UIWidgetTypeModel e) {
-        if (e.type == UIWidgetTypes.BOOK_INFO_TILE &&
-            (e is BookInfoTileModel)) {
+        if (e.uiType == UIWidgetTypes.BOOK_INFO_TILE && (e is BookInfoModel)) {
           return BookInfoTile(
             tileData: e,
           );
         }
+        print('Dev Error! No Widget Assigned');
         return null;
       },
     ).toList(growable: false);
