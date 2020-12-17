@@ -5,7 +5,7 @@ class BookDetailModel {
   final String title;
   final int totalChapters;
   final int chaptersCompleted;
-  final List<ChapterDetailModel> chapters;
+  final List<ChapterInfoModel> chapters;
 
   BookDetailModel({
     this.id,
@@ -14,4 +14,21 @@ class BookDetailModel {
     this.chaptersCompleted,
     this.chapters,
   });
+
+  factory BookDetailModel.fromMap(Map data) {
+    List<ChapterInfoModel> chapters =
+        (data.containsKey('chapters') && (data['chapters'] is List))
+            ? data['chapters']
+                .map<ChapterInfoModel>(
+                    (chapter) => ChapterInfoModel.fromDynamicJson(chapter))
+                .toList()
+            : null;
+    return BookDetailModel(
+      id: data['id'],
+      title: data['title'],
+      totalChapters: data['totalChapters'],
+      chaptersCompleted: data['chaptersCompleted'],
+      chapters: chapters,
+    );
+  }
 }

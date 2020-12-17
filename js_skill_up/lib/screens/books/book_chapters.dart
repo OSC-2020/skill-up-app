@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:js_skill_up/constants/ui_standards.dart';
+import 'package:js_skill_up/services/db/books/book_chapters.dart';
 import 'package:js_skill_up/services/redux/models/books/book_detail.dart';
-import 'package:js_skill_up/services/redux/models/books/chapters/chapter_detail.dart';
 
 class BookChaptersScreen extends StatefulWidget {
-  BookChaptersScreen();
+  final String bookID;
+
+  BookChaptersScreen({this.bookID});
 
   @override
   _BookChaptersScreenState createState() => _BookChaptersScreenState();
@@ -13,29 +16,20 @@ class BookChaptersScreen extends StatefulWidget {
 
 class _BookChaptersScreenState extends State<BookChaptersScreen> {
   ScrollController scrollController;
-
-  final BookDetailModel bookInfo = new BookDetailModel(
-    totalChapters: 12,
-    chapters: [
-      ChapterDetailModel(title: 'Title 1'),
-      ChapterDetailModel(title: 'Title 2'),
-      ChapterDetailModel(title: 'Title 3'),
-      ChapterDetailModel(title: 'Title 4'),
-      ChapterDetailModel(title: 'Title 5'),
-      ChapterDetailModel(title: 'Title 6'),
-      ChapterDetailModel(title: 'Title 7'),
-      ChapterDetailModel(title: 'Title 8'),
-      ChapterDetailModel(title: 'Title 9'),
-      ChapterDetailModel(title: 'Title 10'),
-      ChapterDetailModel(title: 'Title 11'),
-      ChapterDetailModel(title: 'Title 12'),
-    ].toList(growable: false),
-  );
+  BookDetailModel bookDetail;
+  bool showLoader = true;
 
   @override
   void initState() {
     super.initState();
     this.scrollController = new ScrollController();
+    BookChapterDB.getAllChapters(widget.bookID)
+        .then((DocumentSnapshot snapshot) {
+      this.bookDetail = new BookDetailModel.fromMap(snapshot.data());
+      setState(() {
+        this.showLoader = false;
+      });
+    });
   }
 
   @override
@@ -47,6 +41,7 @@ class _BookChaptersScreenState extends State<BookChaptersScreen> {
   @override
   Widget build(BuildContext context) {
     // TODO: when a user has completed half of the chapters, make listview scroll to that chapter(at center)
+    print('Loading chapters for ID : ${widget.bookID}');
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.grid_on),
@@ -54,28 +49,35 @@ class _BookChaptersScreenState extends State<BookChaptersScreen> {
           this.scrollToBottom();
         },
       ),
-      body: Container(
-        color: Colors.cyanAccent,
-        padding: EdgeInsets.symmetric(
-          horizontal: 16.0,
-          vertical: 8.0,
-        ),
-        child: ListView.separated(
-          shrinkWrap: true,
-          reverse: true,
-          controller: this.scrollController,
-          itemCount: this.bookInfo.totalChapters,
-          itemBuilder: (BuildContext context, int index) {
-            if (index == this.bookInfo.totalChapters - 1) {
-              this.scrollToBottom();
-            }
-            return this.generateListItem(index);
-          },
-          separatorBuilder: (BuildContext context, int index) => SizedBox(
-            height: UIStandards.STANDARD_GAP,
-          ),
-        ),
-      ),
+      body: this.showLoader
+          ? Center(
+              child: Text(
+                'I am loading',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            )
+          : Container(
+              color: Colors.cyanAccent,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
+              ),
+              child: ListView.separated(
+                shrinkWrap: true,
+                reverse: true,
+                controller: this.scrollController,
+                itemCount: this.bookDetail.totalChapters,
+                itemBuilder: (BuildContext context, int index) {
+                  if (index == this.bookDetail.totalChapters - 1) {
+                    this.scrollToBottom();
+                  }
+                  return this.generateListItem(index);
+                },
+                separatorBuilder: (BuildContext context, int index) => SizedBox(
+                  height: UIStandards.STANDARD_GAP,
+                ),
+              ),
+            ),
     );
   }
 
@@ -85,7 +87,7 @@ class _BookChaptersScreenState extends State<BookChaptersScreen> {
       alignment: getDynamicAlignment(index),
       child: Card(
         child: ListTile(
-          title: Text(this.bookInfo.chapters[index].title),
+          title: Text(this.bookDetail.chapters[index].title),
         ),
       ),
     );

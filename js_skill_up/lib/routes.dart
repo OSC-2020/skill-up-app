@@ -23,8 +23,13 @@ Route<dynamic> handleRoute(RouteSettings routeSettings) {
       childWidget = HomeScreen();
       break;
     case AppRoutes.BOOK_CHAPTERS:
-      childWidget = BookChaptersScreen();
+      final String bookID = routeSettings.arguments;
+      childWidget = BookChaptersScreen(
+        bookID: bookID,
+      );
       break;
+    default:
+      throw new Exception('Routing error! No route mapped.');
   }
   return MaterialPageRoute(builder: (context) => childWidget);
 }

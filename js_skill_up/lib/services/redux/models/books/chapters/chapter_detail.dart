@@ -1,25 +1,51 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'base/chapter_base.dart';
 import 'base/chapter_content.dart';
 import 'base/chapter_quiz.dart';
 
-class ChapterDetailModel {
+class ChapterInfoModel {
   final String id;
   final String title;
-  final bool containsContent;
   final bool isCompleted;
+  Timestamp completedOn;
+
+  ChapterInfoModel({this.id, this.title, this.isCompleted, this.completedOn}) {
+    if (this.completedOn == null) {
+      this.completedOn = Timestamp.now();
+    }
+  }
+
+  factory ChapterInfoModel.fromDynamicJson(data) {
+    return ChapterInfoModel(
+      id: data['id'],
+      title: data['title'],
+      isCompleted: data['isCompleted'],
+      completedOn: data['completedOn'],
+    );
+  }
+}
+
+class ChapterDetailModel extends ChapterInfoModel {
+  final bool containsContent;
   final List<ChapterTheoryModel> contents;
   int lastContentPagePos;
   final int activeIndex;
 
   ChapterDetailModel({
-    this.id,
-    this.title,
+    id,
+    title,
+    isCompleted,
+    completedOn,
     this.containsContent = true,
     this.lastContentPagePos,
-    this.isCompleted,
     this.contents,
     this.activeIndex,
-  }) {
+  }) : super(
+            id: id,
+            title: title,
+            isCompleted: isCompleted,
+            completedOn: completedOn) {
     if (this.lastContentPagePos == null && this.contents != null) {
       this.lastContentPagePos = contents.length;
     }

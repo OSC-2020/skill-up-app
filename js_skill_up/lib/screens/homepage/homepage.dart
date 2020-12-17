@@ -29,7 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
   SaveToStoreCallback _getSaveToStoreCallBack(Store<AppState> store) {
     return (BookInfoModel book) {
       store.dispatch(BookGroupSelectBookAction(selectedBook: book));
-      GlobalKeys.navKey.currentState.pushNamed(AppRoutes.BOOK_CHAPTERS);
+      GlobalKeys.navKey.currentState.pushNamed(
+        AppRoutes.BOOK_CHAPTERS,
+        arguments: book.id,
+      );
     };
   }
 
