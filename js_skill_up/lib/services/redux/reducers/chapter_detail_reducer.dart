@@ -1,7 +1,8 @@
 import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_quiz.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/chapter_detail.dart';
 
-chapterDetailReducer(ChapterDetailModel chapter, dynamic action) {
+ChapterDetailModel chapterDetailReducer(
+    ChapterDetailModel chapter, dynamic action) {
   if (action is ChapterDetailNextPageAction) {
     if (chapter.activeIndex == chapter.contents.length - 1) {
       return chapter;

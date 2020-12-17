@@ -7,8 +7,14 @@ class SkillUpGridWithTitle extends StatelessWidget {
   final String title;
   final int colCount;
   final List<UIWidgetTypeModel> items;
+  final GridItemClickCallback clickCallback;
 
-  SkillUpGridWithTitle({@required this.title, this.colCount = 2, this.items}) {
+  SkillUpGridWithTitle({
+    @required this.title,
+    @required this.clickCallback,
+    this.colCount = 2,
+    this.items,
+  }) {
     assert(this.colCount == 2 || this.colCount == 3);
     assert(this.items.length > 0);
   }
@@ -38,8 +44,14 @@ class SkillUpGridWithTitle extends StatelessWidget {
           height: UIStandards.STANDARD_GAP,
         ),
         this.colCount == 2
-            ? SkillUpGrid.gridWith2cols(items: this.items)
-            : SkillUpGrid.gridWith3cols(items: this.items)
+            ? SkillUpGrid.gridWith2cols(
+                items: this.items,
+                callback: this.clickCallback,
+              )
+            : SkillUpGrid.gridWith3cols(
+                items: this.items,
+                callback: this.clickCallback,
+              )
       ],
     );
   }

@@ -4,7 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:js_skill_up/screens/chapter/widgets/chapter_content.dart';
 import 'package:js_skill_up/services/redux/models/app_state.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_quiz.dart';
-import 'package:js_skill_up/services/redux/reducers/books_detail_reducer.dart';
+import 'package:js_skill_up/services/redux/reducers/chapter_detail_reducer.dart';
 
 class ChapterQuizWidget extends StatelessWidget {
   final ChapterQuizModel quizPage;

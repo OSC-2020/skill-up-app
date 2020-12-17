@@ -44,7 +44,8 @@ class MyApp extends StatelessWidget {
           accentColor: Color(0xFFFF6B6B),
         ),
         home: HomeScreen(
-          checkUserLogin: () => _store.dispatch(initialiseLoginState),
+          checkUserLogin: () =>
+              _store.dispatch(initialiseLoginStateMiddlewareAction),
         ),
         onGenerateRoute: handleRoute,
         navigatorKey: GlobalKeys.navKey,

@@ -8,7 +8,7 @@ import 'package:js_skill_up/services/redux/models/app_state.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_base.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_quiz.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/chapter_detail.dart';
-import 'package:js_skill_up/services/redux/reducers/books_detail_reducer.dart';
+import 'package:js_skill_up/services/redux/reducers/chapter_detail_reducer.dart';
 import 'package:redux/redux.dart';
 
 class ChapterDetailScreen extends StatelessWidget {

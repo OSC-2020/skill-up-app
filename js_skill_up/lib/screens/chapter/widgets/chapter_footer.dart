@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:js_skill_up/services/redux/models/app_state.dart';
-import 'package:js_skill_up/services/redux/reducers/books_detail_reducer.dart';
+import 'package:js_skill_up/services/redux/reducers/chapter_detail_reducer.dart';
 import 'package:redux/redux.dart';
 
 class ChapterFooterWidget extends StatelessWidget {

@@ -80,8 +80,8 @@ class LoginScreen extends StatelessWidget {
 
   SaveToStoreCallback _getSaveToStoreCallBack(Store<AppState> store) {
     return (UserModel user) {
-      store.dispatch(saveLoginState(user));
-      GlobalKeys.navKey.currentState.pushNamed(AppRoutes.homepage);
+      store.dispatch(saveLoginStateMiddlewareAction(user));
+      GlobalKeys.navKey.currentState.pushNamed(AppRoutes.HOMEPAGE);
     };
   }
 

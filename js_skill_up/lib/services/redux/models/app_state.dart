@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:js_skill_up/services/redux/models/books/book_groups.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_base.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_content.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_quiz.dart';
@@ -8,13 +9,15 @@ import 'package:js_skill_up/services/redux/models/user_model.dart';
 @immutable
 class AppState {
   final UserModel user;
+  final BookInfoModel currentBook;
   final ChapterDetailModel currentChapter;
 
-  AppState({@required this.user, this.currentChapter});
+  AppState({@required this.user, this.currentBook, this.currentChapter});
 
   factory AppState.initial() {
     return AppState(
       user: null,
+      currentBook: null,
       currentChapter: ChapterDetailModel(
           containsContent: true,
           id: "1",
