@@ -11,14 +11,24 @@ import 'package:js_skill_up/services/redux/models/books/chapters/chapter_detail.
 import 'package:js_skill_up/services/redux/reducers/chapter_detail_reducer.dart';
 import 'package:redux/redux.dart';
 
-class ChapterDetailScreen extends StatelessWidget {
+class ChapterDetailScreen extends StatefulWidget {
+  final String chapterID;
+
+  ChapterDetailScreen({this.chapterID});
+
+  @override
+  _ChapterDetailScreenState createState() => _ChapterDetailScreenState();
+}
+
+class _ChapterDetailScreenState extends State<ChapterDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    print('******** Trying to load ${widget.chapterID}');
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       body: SafeArea(
         child: StoreConnector<AppState, ChapterDetailModel>(
-          converter: (store) => store.state.currentChapter,
+          converter: (store) => store.state.currentChapterDetail,
           builder: (BuildContext context, ChapterDetailModel detail) {
             final int activeIndex = (detail.activeIndex ?? 0);
             final double progressVal =

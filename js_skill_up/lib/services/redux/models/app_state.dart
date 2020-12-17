@@ -10,15 +10,21 @@ import 'package:js_skill_up/services/redux/models/user_model.dart';
 class AppState {
   final UserModel user;
   final BookInfoModel currentBook;
-  final ChapterDetailModel currentChapter;
+  final ChapterInfoModel currentChapterInfo;
+  final ChapterDetailModel currentChapterDetail;
 
-  AppState({@required this.user, this.currentBook, this.currentChapter});
+  AppState(
+      {@required this.user,
+      this.currentBook,
+      this.currentChapterInfo,
+      this.currentChapterDetail});
 
   factory AppState.initial() {
     return AppState(
       user: null,
       currentBook: null,
-      currentChapter: ChapterDetailModel(
+      currentChapterInfo: null,
+      currentChapterDetail: ChapterDetailModel(
           containsContent: true,
           id: "1",
           title: 'Introduction',

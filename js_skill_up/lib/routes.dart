@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:js_skill_up/screens/books/book_chapters.dart';
+import 'package:js_skill_up/screens/chapter/chapter_detail.dart';
 import 'package:js_skill_up/screens/homepage/homepage.dart';
 import 'package:js_skill_up/screens/login/login.dart';
 
@@ -7,6 +8,7 @@ class AppRoutes {
   static const String LOGIN = '/login';
   static const String HOMEPAGE = '/homepage';
   static const String BOOK_CHAPTERS = '/bookChapters';
+  static const String CHAPTER_DETAIL = '/chapterDetail';
 }
 
 Route<dynamic> handleRoute(RouteSettings routeSettings) {
@@ -26,6 +28,12 @@ Route<dynamic> handleRoute(RouteSettings routeSettings) {
       final String bookID = routeSettings.arguments;
       childWidget = BookChaptersScreen(
         bookID: bookID,
+      );
+      break;
+    case AppRoutes.CHAPTER_DETAIL:
+      final String chapterID = routeSettings.arguments;
+      childWidget = ChapterDetailScreen(
+        chapterID: chapterID,
       );
       break;
     default:
