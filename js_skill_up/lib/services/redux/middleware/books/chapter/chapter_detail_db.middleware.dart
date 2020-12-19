@@ -7,15 +7,6 @@ import 'package:js_skill_up/services/redux/reducers/chapter_detail_reducer.dart'
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
-void action(Store<String> store) async {
-  final String searchResults = await Future.delayed(
-    Duration(seconds: 1),
-    () => "Search Results",
-  );
-
-  store.dispatch(searchResults);
-}
-
 ThunkAction<AppState> loadChapterDetailFromDBMiddleware(
     String bookID, String chapterID) {
   return (Store<AppState> store) async {
