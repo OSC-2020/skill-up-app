@@ -4,6 +4,7 @@ import 'package:js_skill_up/screens/chapter/widgets/chapter_footer.dart';
 import 'package:js_skill_up/screens/chapter/widgets/chapter_header.dart';
 import 'package:js_skill_up/screens/chapter/widgets/chapter_quiz.dart';
 import 'package:js_skill_up/screens/chapter/widgets/chapter_theory.dart';
+import 'package:js_skill_up/services/redux/middleware/books/chapter/chapter_detail_db.middleware.dart';
 import 'package:js_skill_up/services/redux/models/app_state.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_base.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_quiz.dart';
@@ -11,25 +12,35 @@ import 'package:js_skill_up/services/redux/models/books/chapters/chapter_detail.
 import 'package:js_skill_up/services/redux/reducers/chapter_detail_reducer.dart';
 import 'package:redux/redux.dart';
 
-class ChapterDetailScreen extends StatefulWidget {
+class ChapterDetailScreen extends StatelessWidget {
   final String chapterID;
 
   ChapterDetailScreen({this.chapterID});
 
   @override
-  _ChapterDetailScreenState createState() => _ChapterDetailScreenState();
-}
-
-class _ChapterDetailScreenState extends State<ChapterDetailScreen> {
-  @override
   Widget build(BuildContext context) {
-    print('******** Trying to load ${widget.chapterID}');
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       body: SafeArea(
         child: StoreConnector<AppState, ChapterDetailModel>(
-          converter: (store) => store.state.currentChapterDetail,
+          converter: (store) {
+            ChapterDetailModel chapter = store.state.currentChapterDetail;
+            if (chapter == null) {
+              store.dispatch(loadChapterDetailFromDBMiddleware(
+                  store.state.currentBook.id, this.chapterID));
+            }
+            return chapter;
+          },
           builder: (BuildContext context, ChapterDetailModel detail) {
+            if (detail == null) {
+              return Center(
+                child: Text(
+                  'I am loading',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+              );
+            }
+
             final int activeIndex = (detail.activeIndex ?? 0);
             final double progressVal =
                 (activeIndex + 1) / detail.contents.length;
@@ -69,7 +80,7 @@ class _ChapterDetailScreenState extends State<ChapterDetailScreen> {
                     builder:
                         (BuildContext context, Function nextClickCallback) {
                       return ChapterFooterWidget(
-                        explanationString: currentPage.footerHelpText,
+                        explanationString: currentPage.footerText,
                         hidePrev: isFirstPage || isQuiz,
                         isLastPage: isLastPage,
                         onNextClick: nextClickCallback,

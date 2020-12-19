@@ -28,7 +28,7 @@ class ChapterQuizModel extends ChapterTheoryModel {
   }) : super(
           content: content,
           pageType: ChapterPageType.QUIZ,
-          footerHelpText: footerHelpText,
+          footerText: footerHelpText,
         );
 
   ChapterQuizModel copyWith({
@@ -41,7 +41,7 @@ class ChapterQuizModel extends ChapterTheoryModel {
       options: this.options,
       correctOptionIndex: this.correctOptionIndex,
       content: this.content,
-      footerHelpText: this.footerHelpText,
+      footerHelpText: this.footerText,
       isCorrect: isCorrect ?? this.isCorrect,
       userSelectionOptionIndex:
           selectedOptionIndex ?? this.userSelectionOptionIndex,

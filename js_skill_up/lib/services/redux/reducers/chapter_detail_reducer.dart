@@ -3,6 +3,10 @@ import 'package:js_skill_up/services/redux/models/books/chapters/chapter_detail.
 
 ChapterDetailModel chapterDetailReducer(
     ChapterDetailModel chapter, dynamic action) {
+  if (action is ChapterDetailSaveToStoreAction) {
+    return action.chapter;
+  }
+
   if (action is ChapterDetailNextPageAction) {
     if (chapter.activeIndex == chapter.contents.length - 1) {
       return chapter;
@@ -44,6 +48,12 @@ ChapterDetailModel chapterDetailReducer(
 }
 
 class ChapterDetailStartChapterAction {}
+
+class ChapterDetailSaveToStoreAction {
+  final ChapterDetailModel chapter;
+
+  ChapterDetailSaveToStoreAction({this.chapter});
+}
 
 class ChapterDetailNextPageAction {}
 

@@ -51,16 +51,36 @@ class ChapterDetailModel extends ChapterInfoModel {
     }
   }
 
+  factory ChapterDetailModel.fromMap(Map data) {
+    List<ChapterTheoryModel> chapters = (data.containsKey('chapters') &&
+            (data['chapters'] is List))
+        ? data['chapters']
+            .map<ChapterTheoryModel>((book) => ChapterTheoryModel.fromMap(book))
+            .toList()
+        : null;
+    return ChapterDetailModel(
+      id: data['id'],
+      title: data['title'],
+      isCompleted: data['isCompleted'],
+      completedOn: data['completedOn'],
+      containsContent: data['containsContent'],
+      lastContentPagePos: data['lastContentPagePos'],
+      activeIndex: data['activeIndex'],
+      contents: chapters,
+    );
+  }
+
   ChapterDetailModel copyWith({
     bool isCompleted,
     int activeIndex,
+    List<ChapterTheoryModel> contents,
   }) {
     return ChapterDetailModel(
       id: this.id,
       title: this.title,
       containsContent: this.containsContent,
       lastContentPagePos: this.lastContentPagePos,
-      contents: this.contents,
+      contents: contents ?? this.contents,
       isCompleted: isCompleted ?? this.isCompleted,
       activeIndex: activeIndex ?? this.activeIndex,
     );

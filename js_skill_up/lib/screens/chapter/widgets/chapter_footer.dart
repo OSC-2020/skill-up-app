@@ -58,7 +58,7 @@ class ChapterFooterWidget extends StatelessWidget {
                           },
                         ),
                   Expanded(
-                      child: this.explanationString.length > 0
+                      child: (this.explanationString ?? "").length > 0
                           ? Text(this.explanationString)
                           : Container()),
                   FloatingActionButton.extended(

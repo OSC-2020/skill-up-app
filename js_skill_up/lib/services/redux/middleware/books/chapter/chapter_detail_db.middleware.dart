@@ -1,0 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:js_skill_up/services/db/books/chapters/chapter_detail.dart';
+import 'package:js_skill_up/services/redux/models/app_state.dart';
+import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_content.dart';
+import 'package:js_skill_up/services/redux/models/books/chapters/chapter_detail.dart';
+import 'package:js_skill_up/services/redux/reducers/chapter_detail_reducer.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_thunk/redux_thunk.dart';
+
+void action(Store<String> store) async {
+  final String searchResults = await Future.delayed(
+    Duration(seconds: 1),
+    () => "Search Results",
+  );
+
+  store.dispatch(searchResults);
+}
+
+ThunkAction<AppState> loadChapterDetailFromDBMiddleware(
+    String bookID, String chapterID) {
+  return (Store<AppState> store) async {
+    DocumentSnapshot chapterDoc =
+        await ChaptersDB.getChapterInfo(bookID, chapterID);
+    ChapterDetailModel chapter = ChapterDetailModel.fromMap(chapterDoc.data());
+    List contents = await ChaptersDB.getChapterContents(bookID, chapterID);
+
+    chapter = chapter.copyWith(
+        contents: contents
+            .map((e) => ChapterTheoryModel.fromMap(e))
+            .toList(growable: false));
+    store.dispatch(ChapterDetailSaveToStoreAction(chapter: chapter));
+  };
+}
