@@ -4,6 +4,7 @@ ChapterInfoModel bookChaptersReducer(ChapterInfoModel chapter, dynamic action) {
   if (action is BookChaptersSelectChapterAction) {
     return action.selectedChapter;
   }
+  return chapter;
 }
 
 class BookChaptersSelectChapterAction {
