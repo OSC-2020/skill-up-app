@@ -1,4 +1,4 @@
-import 'package:js_skill_up/services/redux/models/books/book_groups.dart';
+import 'package:js_skill_up/services/redux/models/books/book_groups.model.dart';
 
 BookInfoModel currentBookReducer(BookInfoModel book, dynamic action) {
   if (action is BookGroupSelectBookAction) {

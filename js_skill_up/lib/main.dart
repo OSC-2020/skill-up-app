@@ -5,9 +5,9 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:js_skill_up/global_keys.dart';
 import 'package:js_skill_up/routes.dart';
 import 'package:js_skill_up/screens/homepage/homepage.dart';
-import 'package:js_skill_up/services/redux/middleware/login_state_middleware.dart';
-import 'package:js_skill_up/services/redux/models/app_state.dart';
-import 'package:js_skill_up/services/redux/reducers/app_reducers.dart';
+import 'package:js_skill_up/services/redux/middleware/login_state.middleware.dart';
+import 'package:js_skill_up/services/redux/models/app_state.model.dart';
+import 'package:js_skill_up/services/redux/reducers/appreducers.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 

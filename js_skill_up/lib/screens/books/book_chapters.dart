@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:js_skill_up/constants/ui_standards.dart';
 import 'package:js_skill_up/services/redux/middleware/books/book_chapters.middleware.dart';
-import 'package:js_skill_up/services/redux/models/app_state.dart';
-import 'package:js_skill_up/services/redux/models/books/book_detail.dart';
+import 'package:js_skill_up/services/redux/models/app_state.model.dart';
+import 'package:js_skill_up/services/redux/models/books/book_detail.model.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/chapter_detail.dart';
 import 'package:js_skill_up/services/redux/reducers/books/current_chapter.reducer.dart';
 

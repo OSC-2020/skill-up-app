@@ -4,8 +4,8 @@ import 'package:js_skill_up/constants/ui_widget_types.dart';
 import 'package:js_skill_up/routes.dart';
 import 'package:js_skill_up/screens/homepage/widgets/grid_with_title.dart';
 import 'package:js_skill_up/services/redux/middleware/books/books_groups.middleware.dart';
-import 'package:js_skill_up/services/redux/models/app_state.dart';
-import 'package:js_skill_up/services/redux/models/books/book_groups.dart';
+import 'package:js_skill_up/services/redux/models/app_state.model.dart';
+import 'package:js_skill_up/services/redux/models/books/book_groups.model.dart';
 import 'package:js_skill_up/services/redux/reducers/books/current_book.reducer.dart';
 
 import '../../global_keys.dart';

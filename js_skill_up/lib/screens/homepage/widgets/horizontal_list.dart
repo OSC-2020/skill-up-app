@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:js_skill_up/constants/ui_standards.dart';
 import 'package:js_skill_up/constants/ui_widget_types.dart';
 import 'package:js_skill_up/screens/homepage/widgets/book_info_tile.dart';
-import 'package:js_skill_up/services/redux/models/books/book_groups.dart';
+import 'package:js_skill_up/services/redux/models/books/book_groups.model.dart';
 
 class SkillUpHorizontalList extends StatelessWidget {
   final List<UIWidgetTypeModel> items;

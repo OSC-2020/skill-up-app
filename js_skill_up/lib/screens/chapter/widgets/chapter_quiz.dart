@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:js_skill_up/screens/chapter/widgets/chapter_content.dart';
-import 'package:js_skill_up/services/redux/models/app_state.dart';
+import 'package:js_skill_up/services/redux/models/app_state.model.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_quiz.dart';
-import 'package:js_skill_up/services/redux/reducers/chapter_detail_reducer.dart';
+import 'package:js_skill_up/services/redux/reducers/chapter_detail.reducer.dart';
 
 class ChapterQuizWidget extends StatelessWidget {
   final ChapterQuizModel quizPage;

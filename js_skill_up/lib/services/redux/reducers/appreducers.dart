@@ -1,10 +1,10 @@
-import 'package:js_skill_up/services/redux/models/app_state.dart';
+import 'package:js_skill_up/services/redux/models/app_state.model.dart';
 import 'package:js_skill_up/services/redux/reducers/books/book_chapters.reducer.dart';
 import 'package:js_skill_up/services/redux/reducers/books/book_groups.reducer.dart';
 import 'package:js_skill_up/services/redux/reducers/books/current_book.reducer.dart';
 import 'package:js_skill_up/services/redux/reducers/books/current_chapter.reducer.dart';
-import 'package:js_skill_up/services/redux/reducers/chapter_detail_reducer.dart';
-import 'package:js_skill_up/services/redux/reducers/user_reducer.dart';
+import 'package:js_skill_up/services/redux/reducers/chapter_detail.reducer.dart';
+import 'package:js_skill_up/services/redux/reducers/user.reducer.dart';
 
 AppState appReducer(AppState state, dynamic action) {
   return AppState(

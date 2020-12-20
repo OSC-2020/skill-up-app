@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:js_skill_up/services/redux/models/books/book_detail.dart';
-import 'package:js_skill_up/services/redux/models/books/book_groups.dart';
+import 'package:js_skill_up/services/redux/models/books/book_detail.model.dart';
+import 'package:js_skill_up/services/redux/models/books/book_groups.model.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/chapter_detail.dart';
-import 'package:js_skill_up/services/redux/models/user_model.dart';
+import 'package:js_skill_up/services/redux/models/user.model.dart';
 
 @immutable
 class AppState {

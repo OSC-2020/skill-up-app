@@ -1,4 +1,4 @@
-import 'package:js_skill_up/services/redux/models/books/book_detail.dart';
+import 'package:js_skill_up/services/redux/models/books/book_detail.model.dart';
 
 Map<String, BookDetailModel> bookChaptersReducer(
     Map<String, BookDetailModel> bookChapters, dynamic action) {

@@ -1,5 +1,5 @@
 import 'package:js_skill_up/constants/shared_prefs.dart';
-import 'package:js_skill_up/services/redux/models/user_model.dart';
+import 'package:js_skill_up/services/redux/models/user.model.dart';
 import 'package:js_skill_up/utils/shared_prefs.dart';
 
 class SP_User {

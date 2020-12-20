@@ -7,9 +7,9 @@ import 'package:js_skill_up/routes.dart';
 import 'package:js_skill_up/screens/login/widgets/phone-input.dart';
 import 'package:js_skill_up/services/db/users/users.dart';
 import 'package:js_skill_up/services/firebase/login_utils.dart';
-import 'package:js_skill_up/services/redux/middleware/login_state_middleware.dart';
-import 'package:js_skill_up/services/redux/models/app_state.dart';
-import 'package:js_skill_up/services/redux/models/user_model.dart';
+import 'package:js_skill_up/services/redux/middleware/login_state.middleware.dart';
+import 'package:js_skill_up/services/redux/models/app_state.model.dart';
+import 'package:js_skill_up/services/redux/models/user.model.dart';
 import 'package:redux/redux.dart';
 
 typedef SaveToStoreCallback(UserModel user);

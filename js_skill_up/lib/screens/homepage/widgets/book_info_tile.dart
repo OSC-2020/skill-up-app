@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:js_skill_up/constants/ui_standards.dart';
-import 'package:js_skill_up/services/redux/models/books/book_groups.dart';
+import 'package:js_skill_up/services/redux/models/books/book_groups.model.dart';
 
 class BookInfoTile extends StatelessWidget {
   BookInfoModel tileData;
