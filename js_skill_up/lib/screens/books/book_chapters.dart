@@ -1,14 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:js_skill_up/constants/ui_standards.dart';
-import 'package:js_skill_up/services/db/books/book_chapters.dart';
+import 'package:js_skill_up/services/redux/middleware/books/book_chapters.middleware.dart';
 import 'package:js_skill_up/services/redux/models/app_state.dart';
 import 'package:js_skill_up/services/redux/models/books/book_detail.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/chapter_detail.dart';
-import 'package:js_skill_up/services/redux/reducers/books/book_chapters.dart';
-import 'package:redux/redux.dart';
+import 'package:js_skill_up/services/redux/reducers/books/current_chapter.reducer.dart';
 
 import '../../global_keys.dart';
 import '../../routes.dart';
@@ -26,11 +24,10 @@ class BookChaptersScreen extends StatefulWidget {
 
 class _BookChaptersScreenState extends State<BookChaptersScreen> {
   ScrollController scrollController;
-  BookDetailModel bookDetail;
-  bool showLoader = true;
 
-  SaveToStoreCallback _getSaveToStoreCallBack(Store<AppState> store) {
+  SaveToStoreCallback _getSaveToStoreCallBack() {
     return (ChapterInfoModel chapter) {
+      final store = StoreProvider.of<AppState>(context);
       store.dispatch(BookChaptersSelectChapterAction(selectedChapter: chapter));
       GlobalKeys.navKey.currentState.pushNamed(
         AppRoutes.CHAPTER_DETAIL,
@@ -43,13 +40,6 @@ class _BookChaptersScreenState extends State<BookChaptersScreen> {
   void initState() {
     super.initState();
     this.scrollController = new ScrollController();
-    BookChapterDB.getAllChapters(widget.bookID)
-        .then((DocumentSnapshot snapshot) {
-      this.bookDetail = new BookDetailModel.fromMap(snapshot.data());
-      setState(() {
-        this.showLoader = false;
-      });
-    });
   }
 
   @override
@@ -71,58 +61,70 @@ class _BookChaptersScreenState extends State<BookChaptersScreen> {
         ),
         backgroundColor: Colors.cyanAccent,
         body: SafeArea(
-          child: StoreConnector<AppState, SaveToStoreCallback>(
-            converter: (store) => this._getSaveToStoreCallBack(store),
-            builder: (context, SaveToStoreCallback callback) {
-              return this.showLoader
-                  ? Center(
-                      child: Text(
-                        'I am loading',
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        ListView.separated(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 16.0,
-                            vertical: 8.0,
-                          ),
-                          shrinkWrap: true,
-                          reverse: true,
-                          controller: this.scrollController,
-                          itemCount: this.bookDetail.totalChapters,
-                          itemBuilder: (BuildContext context, int index) {
-                            if (index == this.bookDetail.totalChapters - 1) {
-                              this.scrollToBottom();
-                            }
-                            return this.generateListItem(index, callback);
-                          },
-                          separatorBuilder: (BuildContext context, int index) =>
-                              SizedBox(
-                            height: UIStandards.STANDARD_GAP,
-                          ),
-                        ),
-                      ],
-                    );
+          child: StoreConnector<AppState, BookDetailModel>(
+            converter: (store) {
+              if (store.state.bookChaptersMap.containsKey(widget.bookID) &&
+                  store.state.bookChaptersMap[widget.bookID] != null) {
+                return store.state.bookChaptersMap[widget.bookID];
+              }
+              store
+                  .dispatch(loadChaptersForBookFromDBMiddleware(widget.bookID));
+              return null;
+            },
+            builder: (context, BookDetailModel bookDetail) {
+              if (bookDetail == null) {
+                return Center(
+                  child: Text(
+                    'I am loading',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                );
+              }
+
+              SaveToStoreCallback callback = this._getSaveToStoreCallBack();
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  ListView.separated(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
+                    shrinkWrap: true,
+                    reverse: true,
+                    controller: this.scrollController,
+                    itemCount: bookDetail.totalChapters,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (index == bookDetail.totalChapters - 1) {
+                        this.scrollToBottom();
+                      }
+                      return this.generateListItem(bookDetail, index, callback);
+                    },
+                    separatorBuilder: (BuildContext context, int index) =>
+                        SizedBox(
+                      height: UIStandards.STANDARD_GAP,
+                    ),
+                  ),
+                ],
+              );
             },
           ),
         ));
   }
 
-  generateListItem(int index, SaveToStoreCallback callback) {
+  generateListItem(
+      BookDetailModel bookDetail, int index, SaveToStoreCallback callback) {
     return GestureDetector(
       onTap: () {
         assert(callback != null);
-        callback(this.bookDetail.chapters[index]);
+        callback(bookDetail.chapters[index]);
       },
       child: FractionallySizedBox(
         widthFactor: 0.7,
         alignment: getDynamicAlignment(index),
         child: Card(
           child: ListTile(
-            title: Text(this.bookDetail.chapters[index].title),
+            title: Text(bookDetail.chapters[index].title),
           ),
         ),
       ),

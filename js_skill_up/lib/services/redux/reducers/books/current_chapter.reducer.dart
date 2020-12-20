@@ -1,6 +1,7 @@
 import 'package:js_skill_up/services/redux/models/books/chapters/chapter_detail.dart';
 
-ChapterInfoModel bookChaptersReducer(ChapterInfoModel chapter, dynamic action) {
+ChapterInfoModel currentChapterReducer(
+    ChapterInfoModel chapter, dynamic action) {
   if (action is BookChaptersSelectChapterAction) {
     return action.selectedChapter;
   }
@@ -8,7 +9,7 @@ ChapterInfoModel bookChaptersReducer(ChapterInfoModel chapter, dynamic action) {
 }
 
 class BookChaptersSelectChapterAction {
-  ChapterInfoModel selectedChapter;
+  final ChapterInfoModel selectedChapter;
 
   BookChaptersSelectChapterAction({this.selectedChapter});
 }

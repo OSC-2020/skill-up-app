@@ -6,7 +6,6 @@ import 'package:js_skill_up/services/redux/reducers/books/book_groups.reducer.da
 import 'package:redux/redux.dart';
 
 void loadBookGroupsFromDBMiddleware(Store<AppState> store) async {
-  print('Going to get all');
   QuerySnapshot groupsSnapshot = await BookGroupsDB.getAllBookGroups();
   List<BookGroupsModel> bookGroups = new List<BookGroupsModel>();
   groupsSnapshot.docs.forEach((doc) {
