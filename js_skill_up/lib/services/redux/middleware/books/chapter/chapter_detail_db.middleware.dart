@@ -22,3 +22,9 @@ ThunkAction<AppState> loadChapterDetailFromDBMiddleware(
     store.dispatch(ChapterDetailSaveToStoreAction(chapter: chapter));
   };
 }
+
+void completeChapterMiddleware(Store<AppState> store) async {
+  await ChaptersDB.markChapterCompleted(
+      store.state.currentBook.id, store.state.currentChapterInfo.id);
+  store.dispatch(ChapterDetailCompleteChapterAction);
+}

@@ -22,12 +22,10 @@ ChapterDetailModel chapterDetailReducer(
   }
 
   if (action is ChapterDetailCompleteChapterAction) {
-    print('Completing the course');
     return chapter.copyWith(isCompleted: true);
   }
 
   if (action is ChapterDetailStartChapterAction) {
-    print('Starting the course');
     return chapter.copyWith(isCompleted: false, activeIndex: 0);
   }
 

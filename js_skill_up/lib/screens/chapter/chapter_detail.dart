@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:js_skill_up/global_keys.dart';
+import 'package:js_skill_up/routes.dart';
 import 'package:js_skill_up/screens/chapter/widgets/chapter_footer.dart';
 import 'package:js_skill_up/screens/chapter/widgets/chapter_header.dart';
 import 'package:js_skill_up/screens/chapter/widgets/chapter_quiz.dart';
@@ -98,22 +100,21 @@ class ChapterDetailScreen extends StatelessWidget {
   Function callbackConverter(Store<AppState> store, bool isQuiz,
       bool isLastPage, bool isCorrectnessShownToUser, int currentPageIndex) {
     return () {
-      if (isQuiz) {
-        if (isCorrectnessShownToUser) {
-          if (isLastPage) {
-            store.dispatch(ChapterDetailCompleteChapterAction());
-          } else {
-            store.dispatch(ChapterDetailNextPageAction());
-          }
-        } else {
-          store.dispatch(ChapterDetailQuizShowCorrectnessAction());
-        }
-      } else {
+      final handleNextClick = () {
         if (isLastPage) {
-          store.dispatch(ChapterDetailNextPageAction());
+          store.dispatch(completeChapterMiddleware);
+          GlobalKeys.navKey.currentState.pushNamed(AppRoutes.HOMEPAGE);
         } else {
           store.dispatch(ChapterDetailNextPageAction());
         }
+      };
+
+      if (isQuiz) {
+        isCorrectnessShownToUser
+            ? handleNextClick()
+            : store.dispatch(ChapterDetailQuizShowCorrectnessAction());
+      } else {
+        handleNextClick();
       }
     };
   }

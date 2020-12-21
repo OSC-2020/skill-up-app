@@ -51,7 +51,6 @@ class _BookChaptersScreenState extends State<BookChaptersScreen> {
   @override
   Widget build(BuildContext context) {
     // TODO: when a user has completed half of the chapters, make listview scroll to that chapter(at center)
-    print('Loading chapters for ID : ${widget.bookID}');
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.grid_on),

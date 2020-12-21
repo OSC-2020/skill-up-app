@@ -90,9 +90,6 @@ class ChapterDetailModel extends ChapterInfoModel {
       {int currentPageIndex,
       int optionIndex,
       ChapterQuizPageState newQuizPageState}) {
-    if (newQuizPageState != null) {
-      print('ChangingState to $newQuizPageState');
-    }
     int index = 0;
     List<ChapterTheoryModel> newContents = this.contents.map((page) {
       if (page.pageType == ChapterPageType.QUIZ && index == currentPageIndex) {

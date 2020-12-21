@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+typedef FirestoreTransaction(Transaction transaction);
+
 class FirebaseFirestoreUtils {
   // region Collection Methods
   static CollectionReference getCollectionRef(String path) {
@@ -44,6 +46,18 @@ class FirebaseFirestoreUtils {
     return ref.doc(docID).update(data).catchError((err) => print(
         'Failed to update data: ${data.toString()} \nWith ID: $docID \n For collection: ${ref.path}'));
   }
+
 // endregion Add/Update
 // endregion Doc Methods
+
+  static runInTransaction(FirestoreTransaction methodToRun) async {
+    assert(methodToRun != null);
+    try {
+      await FirebaseFirestore.instance
+          .runTransaction((transaction) => methodToRun(transaction));
+      print('Transaction success');
+    } catch (e) {
+      print('Transaction failure:$e');
+    }
+  }
 }
