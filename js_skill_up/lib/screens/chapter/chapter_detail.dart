@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:js_skill_up/global_keys.dart';
-import 'package:js_skill_up/routes.dart';
 import 'package:js_skill_up/screens/chapter/widgets/chapter_footer.dart';
 import 'package:js_skill_up/screens/chapter/widgets/chapter_header.dart';
 import 'package:js_skill_up/screens/chapter/widgets/chapter_quiz.dart';
@@ -103,7 +101,6 @@ class ChapterDetailScreen extends StatelessWidget {
       final handleNextClick = () {
         if (isLastPage) {
           store.dispatch(completeChapterMiddleware);
-          GlobalKeys.navKey.currentState.pushNamed(AppRoutes.HOMEPAGE);
         } else {
           store.dispatch(ChapterDetailNextPageAction());
         }

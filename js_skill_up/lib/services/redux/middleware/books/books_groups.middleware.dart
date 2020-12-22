@@ -11,5 +11,6 @@ void loadBookGroupsFromDBMiddleware(Store<AppState> store) async {
   groupsSnapshot.docs.forEach((doc) {
     bookGroups.add(BookGroupsModel.fromMap(doc.data()));
   });
+
   store.dispatch(BookGroupsSaveToStoreFromDBBookAction(groups: bookGroups));
 }

@@ -7,7 +7,7 @@ import 'package:redux/redux.dart';
 class ChapterFooterWidget extends StatelessWidget {
   static const String PAGE_TYPE_CONTENT = 'content';
   static const String PAGE_TYPE_QUIZ_CORRECT = 'correct';
-  static const String PAGE_TYPE_Quiz_WRONG = 'wrong';
+  static const String PAGE_TYPE_QUIZ_WRONG = 'wrong';
 
   final String explanationString;
   final bool isLastPage;
@@ -104,7 +104,7 @@ class ChapterFooterWidget extends StatelessWidget {
         return Theme.of(context).primaryColor;
       case PAGE_TYPE_QUIZ_CORRECT:
         return Theme.of(context).primaryColorDark;
-      case PAGE_TYPE_Quiz_WRONG:
+      case PAGE_TYPE_QUIZ_WRONG:
         return Theme.of(context).accentColor;
     }
   }

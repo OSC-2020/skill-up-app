@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:js_skill_up/constants/ui_widget_types.dart';
+import 'package:js_skill_up/services/db/db_constants.dart';
 
 class BookInfoModel implements UIWidgetTypeModel {
   int uiType;
@@ -39,16 +40,17 @@ class BookGroupsModel implements UIWidgetTypeModel {
   });
 
   factory BookGroupsModel.fromMap(Map data) {
-    List<BookInfoModel> books = (data.containsKey('books') &&
-            (data['books'] is List))
-        ? data['books']
+    List<BookInfoModel> books = (data
+                .containsKey(FirestoreBookGroupsLevelCollections.BOOKS_ARRAY) &&
+            (data[FirestoreBookGroupsLevelCollections.BOOKS_ARRAY] is List))
+        ? data[FirestoreBookGroupsLevelCollections.BOOKS_ARRAY]
             .map<BookInfoModel>((book) => BookInfoModel.fromDynamicJson(book))
             .toList()
         : null;
     return BookGroupsModel(
-      title: data['title'],
+      title: data[FirestoreBookGroupsLevelCollections.TITLE_STRING],
       books: books,
-      uiType: data['uiType'],
+      uiType: data[FirestoreBookGroupsLevelCollections.UI_TYPE_INT],
     );
   }
 }

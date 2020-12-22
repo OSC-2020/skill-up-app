@@ -36,7 +36,7 @@ class SkillUpGridWithTitle extends StatelessWidget {
             vertical: 4.0,
           ),
           child: Text(
-            this.title,
+            this.title ?? "",
             style: Theme.of(context).textTheme.headline5,
           ),
         ),

@@ -36,7 +36,7 @@ class ChapterContentWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: Text(
-                contents[i].content,
+                contents[i].content ?? "",
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -44,7 +44,7 @@ class ChapterContentWidget extends StatelessWidget {
           break;
         case AllowedWidgets.SIMPLE_TEXT:
         default:
-          widgets.add(Text(contents[i].content));
+          widgets.add(Text(contents[i].content) ?? "");
           break;
       }
       widgets.add(

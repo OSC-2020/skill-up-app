@@ -7,7 +7,7 @@ class ChaptersDB {
     return FirebaseFirestoreUtils.getCollectionRef(
             FirestoreRootLevelCollections.BOOKS)
         .doc(bookID)
-        .collection(FirestoreBooksLevelCollections.CHAPTERS);
+        .collection(FirestoreBooksLevelCollections.COLLECTION_CHAPTERS);
   }
 
   static Future<DocumentSnapshot> getChapterInfo(
@@ -19,7 +19,8 @@ class ChaptersDB {
       String bookID, String chapterID) async {
     QuerySnapshot contentSnapshot = await ChaptersDB.getChaptersRef(bookID)
         .doc(chapterID)
-        .collection(FirestoreChapterLevelCollections.CHAPTERS_CONTENT)
+        .collection(
+            FirestoreChaptersLevelConstants.COLLECTION_CHAPTERS_CONTENTS)
         .get();
     List content = new List();
     contentSnapshot.docs.forEach((element) {
@@ -30,28 +31,35 @@ class ChaptersDB {
 
   static markChapterCompleted(String bookID, String chapterID) async {
     DocumentReference chapterRef =
-    ChaptersDB.getChaptersRef(bookID).doc(chapterID);
+        ChaptersDB.getChaptersRef(bookID).doc(chapterID);
     DocumentReference bookRef = FirebaseFirestoreUtils.getCollectionRef(
-        FirestoreRootLevelCollections.BOOKS)
+            FirestoreRootLevelCollections.BOOKS)
         .doc(bookID);
 
     FirebaseFirestoreUtils.runInTransaction((transaction) async {
       await transaction.get(chapterRef);
       DocumentSnapshot dataSnap = await transaction.get(bookRef);
 
-      transaction.update(chapterRef, {'isCompleted': true});
+      transaction.update(chapterRef,
+          {FirestoreChaptersLevelConstants.IS_COMPLETED_BOOL: true});
 
-      var data = dataSnap.data();
+      var bookData = dataSnap.data();
       transaction.update(bookRef, {
-        'chaptersCompleted': data.containsKey('chaptersCompleted')
-            ? data['chaptersCompleted'] + 1
+        FirestoreBooksLevelCollections.CHAPTERS_COMPLETED_INT: bookData
+                .containsKey(
+                    FirestoreBooksLevelCollections.CHAPTERS_COMPLETED_INT)
+            ? bookData[FirestoreBooksLevelCollections.CHAPTERS_COMPLETED_INT] +
+                1
             : 1
       });
 
-      List chapters = data['chapters'];
-      var found = chapters.firstWhere((chapter) => chapter['id'] == chapterID);
-      found['isCompleted'] = true;
-      transaction.update(bookRef, {'chapters': chapters});
+      List chapters = bookData[FirestoreBooksLevelCollections.CHAPTERS_ARRAY];
+      var found = chapters.firstWhere((chapter) =>
+          chapter[FirestoreBooksLevelCollections.CHAPTER_ID_STRING] ==
+          chapterID);
+      found[FirestoreBooksLevelCollections.IS_COMPLETED_BOOL] = true;
+      transaction.update(
+          bookRef, {FirestoreBooksLevelCollections.CHAPTERS_ARRAY: chapters});
     });
   }
 }

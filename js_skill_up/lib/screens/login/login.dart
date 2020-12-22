@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
 
   _showSimpleSnackBar(String message) {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text(message),
+      content: Text(message ?? ""),
     ));
   }
 

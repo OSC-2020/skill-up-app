@@ -32,7 +32,7 @@ class BookInfoTile extends StatelessWidget {
                 SizedBox(height: 8.0),
                 Center(
                   child: Text(
-                    this.tileData.title,
+                    this.tileData.title ?? "",
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ),

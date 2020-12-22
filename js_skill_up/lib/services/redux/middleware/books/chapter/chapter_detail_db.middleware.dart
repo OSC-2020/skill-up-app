@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:js_skill_up/global_keys.dart';
+import 'package:js_skill_up/routes.dart';
 import 'package:js_skill_up/services/db/books/chapters/chapter_detail.dart';
 import 'package:js_skill_up/services/redux/models/app_state.model.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/base/chapter_content.dart';
@@ -24,7 +26,14 @@ ThunkAction<AppState> loadChapterDetailFromDBMiddleware(
 }
 
 void completeChapterMiddleware(Store<AppState> store) async {
-  await ChaptersDB.markChapterCompleted(
-      store.state.currentBook.id, store.state.currentChapterInfo.id);
+  try {
+    await ChaptersDB.markChapterCompleted(
+        store.state.currentBook.id, store.state.currentChapterInfo.id);
+  } catch (e) {
+    // Transaction save failed
+    //  TODO: Push an action to show this in UI
+    return;
+  }
   store.dispatch(ChapterDetailCompleteChapterAction);
+  GlobalKeys.navKey.currentState.pushNamed(AppRoutes.HOMEPAGE);
 }

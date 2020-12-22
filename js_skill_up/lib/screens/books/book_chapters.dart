@@ -123,7 +123,7 @@ class _BookChaptersScreenState extends State<BookChaptersScreen> {
         alignment: getDynamicAlignment(index),
         child: Card(
           child: ListTile(
-            title: Text(bookDetail.chapters[index].title),
+            title: Text(bookDetail.chapters[index].title ?? ""),
           ),
         ),
       ),

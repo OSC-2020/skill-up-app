@@ -1,3 +1,4 @@
+import 'package:js_skill_up/services/db/db_constants.dart';
 import 'package:js_skill_up/services/redux/models/books/chapters/chapter_detail.dart';
 
 class BookDetailModel {
@@ -17,17 +18,19 @@ class BookDetailModel {
 
   factory BookDetailModel.fromMap(Map data) {
     List<ChapterInfoModel> chapters =
-        (data.containsKey('chapters') && (data['chapters'] is List))
-            ? data['chapters']
+        (data.containsKey(FirestoreBooksLevelCollections.CHAPTERS_ARRAY) &&
+                (data[FirestoreBooksLevelCollections.CHAPTERS_ARRAY] is List))
+            ? data[FirestoreBooksLevelCollections.CHAPTERS_ARRAY]
                 .map<ChapterInfoModel>(
                     (chapter) => ChapterInfoModel.fromDynamicJson(chapter))
                 .toList()
             : null;
     return BookDetailModel(
-      id: data['id'],
-      title: data['title'],
-      totalChapters: data['totalChapters'],
-      chaptersCompleted: data['chaptersCompleted'],
+      id: data[FirestoreBooksLevelCollections.ID_STRING],
+      title: data[FirestoreBooksLevelCollections.TITLE_STRING],
+      totalChapters: data[FirestoreBooksLevelCollections.TOTAL_CHAPTERS_INT],
+      chaptersCompleted:
+          data[FirestoreBooksLevelCollections.CHAPTERS_COMPLETED_INT],
       chapters: chapters,
     );
   }

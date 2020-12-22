@@ -1,3 +1,5 @@
+import 'package:js_skill_up/services/db/db_constants.dart';
+
 class ChapterPageType {
   static const THEORY = 1;
   static const QUIZ = 2;
@@ -20,8 +22,9 @@ class ContentDetailModel {
 
   factory ContentDetailModel.fromDynamicJson(data) {
     return ContentDetailModel(
-      content: data['content'],
-      contentType: data['contentType'],
+      content: data[FirestoreChaptersContentLevelConstants.CONTENT_TEXT_STRING],
+      contentType:
+          data[FirestoreChaptersContentLevelConstants.CONTENT_TYPE_INT],
     );
   }
 }

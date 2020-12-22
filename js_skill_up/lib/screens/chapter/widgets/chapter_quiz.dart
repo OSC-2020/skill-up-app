@@ -93,7 +93,7 @@ class ChapterQuizOptionWidget extends StatelessWidget {
                     ? MainAxisAlignment.spaceBetween
                     : MainAxisAlignment.start,
                 children: <Widget>[
-                  Text(optionText),
+                  Text(optionText ?? ""),
                   isSelected && showCorrectness
                       ? _getCorrectnessWidget(isCorrect)
                       : Text("")

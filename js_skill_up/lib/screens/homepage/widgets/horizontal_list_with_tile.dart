@@ -21,7 +21,7 @@ class SkillUpHorizontalListWithTitle extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                this.title,
+                this.title ?? "",
                 style: Theme.of(context).textTheme.headline5,
               ),
               Text('')

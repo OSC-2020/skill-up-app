@@ -22,7 +22,7 @@ class SharedPrefsUtils {
       try {
         value = json.encode(value);
       } on JsonUnsupportedObjectError {
-        print('DEV Error: Unsupported object to be parsed');
+        print('Dev Error: Unsupported object to be parsed');
         return;
       } catch (e) {
         print('Something unexpected happened.\n $e');
