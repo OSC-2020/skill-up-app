@@ -123,7 +123,15 @@ class _BookChaptersScreenState extends State<BookChaptersScreen> {
         alignment: getDynamicAlignment(index),
         child: Card(
           child: ListTile(
-            title: Text(bookDetail.chapters[index].title ?? ""),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(bookDetail.chapters[index].title ?? ""),
+                (bookDetail.chapters[index].isCompleted ?? false)
+                    ? Icon(Icons.check_circle)
+                    : Text("")
+              ],
+            ),
           ),
         ),
       ),
