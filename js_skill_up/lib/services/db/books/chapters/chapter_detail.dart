@@ -21,6 +21,7 @@ class ChaptersDB {
         .doc(chapterID)
         .collection(
             FirestoreChaptersLevelConstants.COLLECTION_CHAPTERS_CONTENTS)
+        .orderBy(FirestoreChaptersLevelConstants.CONTENT_ORDER_INT)
         .get();
     List content = new List();
     contentSnapshot.docs.forEach((element) {

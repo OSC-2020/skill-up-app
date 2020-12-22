@@ -35,6 +35,7 @@ class FirestoreBooksLevelCollections {
 class FirestoreChaptersLevelConstants {
   static final String COLLECTION_CHAPTERS_CONTENTS = 'contents';
   static final String IS_COMPLETED_BOOL = 'isCompleted';
+  static final String CONTENT_ORDER_INT = 'contentOrder';
 }
 
 class FirestoreChaptersContentLevelConstants {
